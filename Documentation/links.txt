@@ -1,0 +1,12 @@
+Simple JDBC Connection Example
+Home:
+http://glados.capital.edu:8080/look/home.html
+Users:
+http://glados.capital.edu:8080/look/db_users.jsp
+Posts:
+http://glados.capital.edu:8080/look/db_posts.jsp
+
+PHP MyAdmin Log-In (BE CAREFUL ON HERE!!!)
+http://glados.capital.edu/phpmyadmin/
+User: kholland95
+Password: m47dyrpC5HfRdMEb
