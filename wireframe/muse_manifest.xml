@@ -1,0 +1,34 @@
+<manifest alg="2" build="314" opt="false" iceEnabled="true">
+  <folder name="css">
+    <file name="site_global.css" crc="417434784"/>
+    <file name="master_a-master.css" crc="377472291" ref="images:index:create-an-account:log-in:feed"/>
+    <file name="images.css" crc="3905837066" ref="images"/>
+    <file name="index.css" crc="485589862" ref="index"/>
+    <file name="create-an-account.css" crc="485589862" ref="create-an-account"/>
+    <file name="log-in.css" crc="485589862" ref="log-in"/>
+    <file name="feed.css" crc="485589862" ref="feed"/>
+  </folder>
+  <folder name="scripts">
+    <file name="jquery-1.8.3.min.js" crc="209076791" ref="index:log-in:create-an-account:images:feed"/>
+    <file name="museutils.js" crc="3865766194" ref="index:log-in:create-an-account:images:feed"/>
+    <file name="jquery.tobrowserwidth.js" crc="3842421675" ref="index:log-in:create-an-account:images:feed"/>
+    <file name="jquery.musemenu.js" crc="3788803530" ref="index:log-in:create-an-account:images:feed"/>
+    <file name="jquery.watch.js" crc="4068933136" ref="index:log-in:create-an-account:images:feed"/>
+    <file name="webpro.js" crc="3903299128" ref="images"/>
+    <file name="musewpslideshow.js" crc="138381373" ref="images"/>
+    <file name="jquery.museoverlay.js" crc="4250894771" ref="images"/>
+    <file name="touchswipe.js" crc="4156838003" ref="images"/>
+  </folder>
+  <folder name="images">
+    <file name="bigflower.jpg" crc="3893065589" ref="images"/>
+    <file name="blank.gif" crc="4208392903" ref="images"/>
+    <file name="smallflower.jpg" crc="3849274890" ref="images"/>
+    <file name="leaves.jpg" crc="532919387" ref="images"/>
+    <file name="loading.gif" crc="3815509949" ref="images"/>
+  </folder>
+  <file name="index.html" crc="4202855965" mt="1426804660329" redirect="true"/>
+  <file name="log-in.html" crc="3999028013" mt="1426804660332" redirect="true"/>
+  <file name="create-an-account.html" crc="167944060" mt="1426804660333" redirect="true"/>
+  <file name="images.html" crc="336378547" mt="1426804660334" redirect="true"/>
+  <file name="feed.html" crc="4192502730" mt="1426804660331" redirect="true"/>
+</manifest>
