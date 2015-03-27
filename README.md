@@ -3,8 +3,9 @@ Look image sharing website
 
 A simple java webapp using JDBC for CS 175
 
-Contributers:
+Contributors:
 
 Kevin Holland   
 Matt Fonner  
 Mark Hensler   
+Trey McDeane
