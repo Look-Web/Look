@@ -1,10 +1,7 @@
 package com.look;
 
 import static java.lang.System.out;
-import java.net.URL;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,21 +15,26 @@ import java.util.logging.Logger;
  */
 public class RecentFeed {
     java.sql.Connection con;
-    private static final String db = "look_db.sql";
+    private static final String db = "look_db";
     private static final String db_user = "kholland950";
     private static final String db_password = "m47dyrpC5HfRdMEb";
     
     public RecentFeed() {
         try{
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            con = DriverManager.getConnection("jdbc:mysql://localhost:8080/Look/"+db, db_user, db_password);
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/"+db, db_user, db_password);
         } catch (Exception e) {
             out.println(e.getMessage());
         }
     }
     
     public String outputRecentFeed() throws SQLException {
-        Statement s = con.createStatement();
+        Statement s;
+        try {
+            s = con.createStatement();
+        } catch (NullPointerException e) {
+            return e.getMessage();
+        }
         ResultSet r;
         String output = "";
         try {
