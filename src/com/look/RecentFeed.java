@@ -17,7 +17,7 @@ public class RecentFeed {
     java.sql.Connection con;
     private static final String db = "look_db";
     private static final String db_user = "look_admin";
-    private static final String db_password = "m47dyrpC5HfRdMEb";
+    private static final String db_password = "lookpass";
     
     public RecentFeed() {
         try{
