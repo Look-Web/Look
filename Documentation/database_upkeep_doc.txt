@@ -1,0 +1,10 @@
+DATABASE UPKEEP DOC:
+
+There are periodical updates of the database, each given a name with the starting letter after the previous update. These are located in TMP_Database.
+
+To apply these, paste them (as text) into the mysql terminal. If there are any errors contact kholland950 (Kevin Holland).
+
+
+
+ADDING LOOK USER
+Use the sql script look_admin.sql in TMP_Database.
