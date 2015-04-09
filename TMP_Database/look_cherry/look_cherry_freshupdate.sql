@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 09, 2015 at 03:09 AM
+-- Generation Time: Apr 09, 2015 at 03:13 AM
 -- Server version: 5.6.23
 -- PHP Version: 5.5.14
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `look_db`
 --
+CREATE DATABASE IF NOT EXISTS `look_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `look_db`;
 
 -- --------------------------------------------------------
 
@@ -26,6 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `posts`
 --
 
+DROP TABLE IF EXISTS `posts`;
 CREATE TABLE IF NOT EXISTS `posts` (
   `post_id` int(11) NOT NULL,
   `title` varchar(50) NOT NULL,
@@ -50,6 +53,7 @@ INSERT INTO `posts` (`post_id`, `title`, `description`, `users_user_ID`, `image_
 -- Table structure for table `tags`
 --
 
+DROP TABLE IF EXISTS `tags`;
 CREATE TABLE IF NOT EXISTS `tags` (
   `tag_id` varchar(45) NOT NULL,
   `tag` varchar(50) NOT NULL
@@ -61,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
 -- Table structure for table `tags_has_posts`
 --
 
+DROP TABLE IF EXISTS `tags_has_posts`;
 CREATE TABLE IF NOT EXISTS `tags_has_posts` (
   `tags_tag_id` varchar(45) NOT NULL,
   `posts_post_id` int(11) NOT NULL
@@ -72,6 +77,7 @@ CREATE TABLE IF NOT EXISTS `tags_has_posts` (
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int(10) unsigned NOT NULL,
   `username` varchar(16) NOT NULL,
