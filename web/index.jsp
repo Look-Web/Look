@@ -11,17 +11,106 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Foundation | Welcome</title>
         <link rel="stylesheet" href="css/foundation.css" />
+        <link rel="stylesheet" href="css/styles.css" />
         <script src="js/vendor/modernizr.js"></script>
     </head>
-    <body>
+    
 
-        <div class="row">
-            <div class="large-12 columns">
-                <h1>Welcome to Foundation</h1>
-            </div>
+        <div class="contain-to-grid">
+            <nav class="top-bar" data-topbar role="navigation">
+                <ul class="title-area">
+                    <li class="name">
+                        <h1><a href="#">Look!</a></h1>
+                    </li>
+                    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+                </ul>
+
+                <section class="top-bar-section">
+                    <ul class="right">
+                        <li class="active"><a href="#">Recent Feed</a></li>
+                        <li><a href="#">Upload an Image</a></li>
+                        <li><a href="#">Sign Up/Login</a></li>
+                    </ul>
+                </section>
+            </nav>
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-top: 50px">
+            <div class="small-12 columns"><h1 style="text-align: center">Recent Feed</h1></div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
+            
             <%  RecentFeed rf = new RecentFeed();
             out.println(rf.outputRecentFeed());
             %>
@@ -32,5 +121,5 @@
         <script>
             $(document).foundation();
         </script>
-    </body>
+    
 </html>
