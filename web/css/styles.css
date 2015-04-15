@@ -1,0 +1,19 @@
+.top-bar {
+    margin-bottom: 50px;
+}
+
+.feed-image {
+    padding: 0;
+}
+
+.feed-image-title {
+    font-weight: bold;
+}
+
+.feed-image-attribution, .feed-image-timestamp {
+    font-size: 0.75em;
+}
+
+.feed-image-timestamp {
+    font-style: italic;
+}
