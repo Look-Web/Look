@@ -26,8 +26,8 @@
                 </library>
             </web-module-additional-libraries>
             <source-roots>
-                <root id="src.images.dir"/>
                 <root id="src.dir"/>
+                <root id="src.images.dir"/>
             </source-roots>
             <test-roots/>
         </data>
