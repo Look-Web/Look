@@ -11,15 +11,11 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-<<<<<<< HEAD
-                    <file>${file.reference.prettytime-4.0.0.Final.jar}</file>
-=======
                     <file>${file.reference.commons-fileupload-1.3.1.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
                     <file>${file.reference.commons-io-2.4.jar}</file>
->>>>>>> 8756b3ec8f19b3f29692e222b635eb0617085858
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
