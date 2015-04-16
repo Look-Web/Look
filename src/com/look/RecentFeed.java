@@ -47,15 +47,14 @@ public class RecentFeed {
                 ResultSet userResult = sUser.executeQuery(query);
                 userResult.next();
                 String user = userResult.getString("username");
-                output += "<hr>";
-                output += "<p>";
-                output += String.format("<h2>%s</h2>", r.getString(2));
-                output += String.format("<h3>Post by: %s</h3>", user);
-                output += String.format("<h4>%s</h4>", r.getString(3));
-                output += String.format("<p>%s</p>", r.getTimestamp(6).toString());
-                output += String.format("<img src=%s align=center>", r.getString(5));
-                output += "</p>";
-                output += "<hr>";
+                output += "<div class='large-3 medium-4 small-12 columns'>";
+                output += "<div class='panel feed-image'>";
+                output += String.format("<img src='%s' />", r.getString(5));
+                output += String.format("<span class='feed-image-title'>%s</span><br />", r.getString(2));
+                output += String.format("<span class='feed-image-attribution'>posted by %s</span><br />", user);
+                output += String.format("<span class='feed-image-timestamp'>%s</span>", r.getTimestamp(6).toString());
+                output += "</div>";
+                output += "</div>";
             }
         } catch (SQLException e) {
             out.println(e);
