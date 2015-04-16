@@ -36,7 +36,80 @@
         </div>
 
         <div class="row" style="margin-top: 50px">
-            <div class="small-12 columns"><h1 style="text-align: center">Recent Feed</h1></div>            
+            <div class="small-12 columns"><h1 style="text-align: center">Recent Feed</h1></div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="large-3 medium-4 small-12 columns">
+                <div class="panel feed-image">
+                    <img src="img/bigflower.jpg" />
+                    <span class="feed-image-title">Some Flowers or Something</span> <br />
+                    <span class="feed-image-attribution">posted by Trey McDeane</span> <br />
+                    <span class="feed-image-timestamp">5 minutes ago</span>
+                </div>
+            </div>
+            
             
             <%  RecentFeed rf = new RecentFeed();
             out.println(rf.outputRecentFeed());
