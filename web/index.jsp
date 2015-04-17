@@ -28,8 +28,9 @@
                 <section class="top-bar-section">
                     <ul class="right">
                         <li class="active"><a href="#">Recent Feed</a></li>
-                        <li><a href="upload.html">Upload an Image</a></li>
-                        <li><a href="#">Sign Up/Login</a></li>
+                        <li><a href="upload.jsp">Upload an Image</a></li>
+                        <li><a href="login.jsp">Sign Up/Login</a></li>
+                        <li><a href="logout.jsp">Logout</a></li>
                     </ul>
                 </section>
             </nav>

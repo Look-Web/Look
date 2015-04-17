@@ -70,6 +70,8 @@ public class UploadFileServlet extends HttpServlet {
         
         IMAGE_DIRECTORY = getServletContext().getRealPath("/images/");
         
+        user = request.getSession().getAttribute("user").toString();
+        
         boolean success = handleRequest(request);
         log.info("Request handled successfully: " + success);
         if (success == false) {
@@ -140,7 +142,8 @@ public class UploadFileServlet extends HttpServlet {
             request.setAttribute("message", "Success");
              
             // forwards to the message page
-            getServletContext().getRequestDispatcher("/uploadResult.jsp").forward(request, response);
+            //TODO change this to go to the image post
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
     
@@ -188,9 +191,7 @@ public class UploadFileServlet extends HttpServlet {
                             if (value == null && !fieldName.equals(TAGS_FIELD_NAME)) {
                                 return false;
                             }
-                            if (fieldName.equals(USER_FIELD_NAME)) {
-                                user = value;
-                            } else if (fieldName.equals(TITLE_FIELD_NAME)) {
+                            if (fieldName.equals(TITLE_FIELD_NAME)) {
                                 title = value;
                             } else if (fieldName.equals(DESCRIPTION_FIELD_NAME)) {
                                 description = value;

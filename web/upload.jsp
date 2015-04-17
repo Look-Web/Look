@@ -1,20 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+<%-- 
+    Document   : upload
+    Created on : Apr 17, 2015, 4:36:02 PM
+    Author     : kevinholland
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<% if(session.getAttribute("user") == null) { 
+        response.sendRedirect("login.jsp");
+}
+%>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Upload Image</title>
 </head>
 <body>
+    
     <a href="index.jsp">Look! Home</a>
     <center>
         <h1>Upload Image</h1>
         <form method="POST" action="uploadServlet" enctype="multipart/form-data">
             <table border="0">
-                <tr>
-                    <td>User: (This will be changed obviously)</td>
-                    <td><input type="text" name="user" size="50"/></td>
-                </tr>
                 <tr>
                     <td>Title: </td>
                     <td><input type="text" name="title" size="50"/></td>
