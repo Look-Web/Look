@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 09, 2015 at 03:13 AM
+-- Generation Time: Apr 15, 2015 at 06:55 PM
 -- Server version: 5.6.23
 -- PHP Version: 5.5.14
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `look_db`
 --
+DROP DATABASE 'look_db';
+
 CREATE DATABASE IF NOT EXISTS `look_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `look_db`;
 
@@ -30,13 +32,13 @@ USE `look_db`;
 
 DROP TABLE IF EXISTS `posts`;
 CREATE TABLE IF NOT EXISTS `posts` (
-  `post_id` int(11) NOT NULL AUTO_INCREMENET,
+  `post_id` int(11) NOT NULL,
   `title` varchar(50) NOT NULL,
   `description` varchar(250) DEFAULT NULL,
   `users_user_ID` int(10) unsigned NOT NULL,
   `image_url` varchar(100) DEFAULT NULL,
   `time_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `posts`
@@ -45,7 +47,8 @@ CREATE TABLE IF NOT EXISTS `posts` (
 INSERT INTO `posts` (`post_id`, `title`, `description`, `users_user_ID`, `image_url`, `time_posted`) VALUES
 (1, 'Big Flower', 'Pic of a flower', 123, 'bigflower.jpg', '2015-03-15 20:39:02'),
 (43, 'Sweet leaves!', 'These leaves r so kool guyz', 1234, 'leaves.jpg', '2015-03-15 21:01:22'),
-(45, 'Test', 'Testing this', 123, 'bigflower.jpg', '2015-03-24 15:09:58');
+(45, 'Test', 'Testing this', 123, 'bigflower.jpg', '2015-03-24 15:09:58'),
+(46, 'Test', 'test', 1234, 'image/dog.jpg', '2015-04-15 18:53:22');
 
 -- --------------------------------------------------------
 
@@ -103,7 +106,7 @@ INSERT INTO `users` (`user_id`, `username`, `pass`, `first_name`, `last_name`, `
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
-  ADD PRIMARY KEY (`post_id`), ADD KEY `title` (`title`), ADD KEY `fk_posts_users_idx` (`users_user_ID`);
+  ADD PRIMARY KEY (`post_id`), ADD KEY `fk_posts_users` (`users_user_ID`);
 
 --
 -- Indexes for table `tags`
@@ -123,6 +126,15 @@ ALTER TABLE `tags_has_posts`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
 --
 -- Constraints for dumped tables
 --

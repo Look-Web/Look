@@ -22,7 +22,7 @@
             <web-module-additional-libraries>
                 <library dirs="200">
                     <file>${file.reference.Look-images}</file>
-                    <path-in-war>/</path-in-war>
+                    <path-in-war>/images/</path-in-war>
                 </library>
             </web-module-additional-libraries>
             <source-roots>
