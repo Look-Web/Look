@@ -28,7 +28,7 @@
                 <section class="top-bar-section">
                     <ul class="right">
                         <li class="active"><a href="#">Recent Feed</a></li>
-                        <li><a href="#">Upload an Image</a></li>
+                        <li><a href="upload.html">Upload an Image</a></li>
                         <li><a href="#">Sign Up/Login</a></li>
                     </ul>
                 </section>
