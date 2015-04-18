@@ -49,7 +49,7 @@ public class RecentFeed {
                 String user = userResult.getString("username");
                 output += "<div class='large-3 medium-4 small-12 columns'>";
                 output += "<div class='panel feed-image'>";
-                output += String.format("<img src='images/%s' />", r.getString(5));
+                output += String.format("<div class='feed-image-src' style='background-image: url(images/%s)'></div>", r.getString(5));
                 output += String.format("<span class='feed-image-title'>%s</span><br />", r.getString(2));
                 output += String.format("<span class='feed-image-attribution'>posted by %s</span><br />", user);
                 output += String.format("<span class='feed-image-timestamp'>%s</span>", r.getTimestamp(6).toString());
