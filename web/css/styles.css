@@ -6,6 +6,14 @@
     padding: 0;
 }
 
+.feed-image-src {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    min-height: 200px;
+}
+
 .feed-image-title {
     font-weight: bold;
 }
@@ -16,4 +24,8 @@
 
 .feed-image-timestamp {
     font-style: italic;
+}
+
+.login-box {
+    margin-top: 100px;
 }
