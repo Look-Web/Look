@@ -17,11 +17,15 @@
     </head>
     <body>
         <h1>Try again</h1>
-        <h2>The user or password you entered was incorrect</h2>
+        <h3>Please try again</h3>
+        <p>The username or password was incorrect.<p>
+        
         <form action="authorizeLogin" method="post">
             Username:<input type="text" name="username"> 
             Password:<input type="password" name="password">
             <input type="submit" value="Login"> 
         </form>
+        <br/>
+        Don't have an account? <a href="createAccount.jsp">Create one here!</a>
     </body>
 </html>
