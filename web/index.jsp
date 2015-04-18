@@ -19,7 +19,7 @@
     
     <!--MODAL BOXES-->
     <div id="loginModal" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-        <form>
+        <form action="authorizeLogin" method="post">
             <div class="row"">
                 <div class="small-12 columns">
                     <div class="row" style="text-align: center">
