@@ -3,13 +3,15 @@
     Created on : Mar 27, 2015, 7:51:58 PM
     Author     : tmcdeane
 --%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="com.look.DatabaseUserUtils"%>
 <%@page import="com.look.RecentFeed" %>
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Foundation | Welcome</title>
+        <title>Look! | Welcome</title>
         <link rel="stylesheet" href="css/foundation.css" />
         <link rel="stylesheet" href="css/styles.css" />
         <script src="js/vendor/modernizr.js"></script>

@@ -6,8 +6,10 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<% if(session.getAttribute("user") == null) { 
-        response.sendRedirect("login.jsp");
+<%  //if not logged in
+    if(session.getAttribute("user") == null) { 
+        session.setAttribute("destination", "/upload.jsp");
+        request.getRequestDispatcher("login.jsp").forward(request, response);
 }
 %>
 <html>

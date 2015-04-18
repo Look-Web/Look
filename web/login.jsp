@@ -22,5 +22,7 @@
             Password:<input type="password" name="password">
             <input type="submit" value="Login"> 
         </form>
+        <br/>
+        Don't have an account? <a href="createAccount.jsp">Create one here!</a>
     </body>
 </html>

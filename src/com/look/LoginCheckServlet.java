@@ -32,7 +32,18 @@ public class LoginCheckServlet extends HttpServlet {
         HttpSession session=request.getSession();  
         if (authenticateLogin(user, password)) {
             session.setAttribute("user", user);
-            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+            //no destinaton, default login
+            if (session.getAttribute("destination") == null) {
+                Logger.getLogger(LoginCheckServlet.class.getName()).info("No destination");
+                getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+                
+            } else { //destination given, user was redirected to login
+                Logger.getLogger(LoginCheckServlet.class.getName()).info("dest");
+                getServletContext().getRequestDispatcher(
+                        session.getAttribute("destination").toString()).forward(request, response);
+                //get rid of destination
+                session.setAttribute("destination", null);
+            }
         } else {
             getServletContext().getRequestDispatcher("/login-retry.jsp").forward(request, response);
         }
