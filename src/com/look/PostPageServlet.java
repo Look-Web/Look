@@ -69,7 +69,7 @@ public class PostPageServlet extends HttpServlet {
             
             //set time to pretty time
             PrettyTime p = new PrettyTime();
-            Timestamp stamp = r.getTimestamp("date_posted");
+            Timestamp stamp = r.getTimestamp("time_posted");
             Date date = new Date(stamp.getTime());
             request.setAttribute("time", p.format(date));
             

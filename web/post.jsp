@@ -16,6 +16,7 @@
         <h2>${requestScope.username}</h2>
         <h2>${requestScope.description}</h2>
         <h2>${requestScope.tags}</h2>
+        <h3>${requestScope.time}</h3>
         <img src='images/${requestScope.image}'/>
     </body>
 </html>
