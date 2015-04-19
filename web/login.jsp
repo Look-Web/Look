@@ -35,7 +35,7 @@
 
                 <section class="top-bar-section">
                     <ul class="right">
-                        <li class="active"><a href="#">Recent Feed</a></li>
+                        <li><a href="#">Recent Feed</a></li>
                         <li><a href="upload.jsp">Upload an Image</a></li>
                         <%
                             if (session.getAttribute("user") != null) {
@@ -43,7 +43,7 @@
                                 out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
                                 out.print("!</a><ul class='dropdown'><li><a href='logout.jsp'>Logout</a></li></ul></li>");
                             } else {
-                                out.print("<li><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
+                                out.print("<li class='active'><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
                             }
                         %>
                     </ul>

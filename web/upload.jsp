@@ -37,8 +37,8 @@
 
                 <section class="top-bar-section">
                     <ul class="right">
-                        <li class="active"><a href="index.jsp">Recent Feed</a></li>
-                        <li><a href="upload.jsp">Upload an Image</a></li>
+                        <li><a href="index.jsp">Recent Feed</a></li>
+                        <li class="active"><a href="upload.jsp">Upload an Image</a></li>
                         <%
                             if (session.getAttribute("user") != null) {
                                 out.print("<li class='has-dropdown'><a href='#'>Hello, ");
