@@ -128,23 +128,25 @@ public class UploadPostServlet extends HttpServlet {
                 return;
             }
             
-            //add tags to database
-            String addTagSQL = "INSERT IGNORE INTO tags (tag) " +
-                "VALUES (?); ";
-            String addRelationshipSQL = "INSERT INTO tags_has_posts(tags_tag_id, posts_post_id) " +
-                "VALUES (?, ?);";
-            for (String tag : tagList) {
-                PreparedStatement s = conn.prepareStatement(addTagSQL);
-                s.setString(1, tag);
-                s.executeUpdate();
-                ResultSet r = conn.createStatement().executeQuery(
-                        "SELECT tag_id FROM tags WHERE tag='" + tag + "';");
-                r.next();
-                int tag_id = r.getInt(1);
-                PreparedStatement rS = conn.prepareStatement(addRelationshipSQL);
-                rS.setInt(1, tag_id);
-                rS.setInt(2, post_id);
-                rS.executeUpdate();
+            if (tagList.size() > 0) {
+                //add tags to database
+                String addTagSQL = "INSERT IGNORE INTO tags (tag) " +
+                    "VALUES (?); ";
+                String addRelationshipSQL = "INSERT INTO tags_has_posts(tags_tag_id, posts_post_id) " +
+                    "VALUES (?, ?);";
+                for (String tag : tagList) {
+                    PreparedStatement s = conn.prepareStatement(addTagSQL);
+                    s.setString(1, tag);
+                    s.executeUpdate();
+                    ResultSet r = conn.createStatement().executeQuery(
+                            "SELECT tag_id FROM tags WHERE tag='" + tag + "';");
+                    r.next();
+                    int tag_id = r.getInt(1);
+                    PreparedStatement rS = conn.prepareStatement(addRelationshipSQL);
+                    rS.setInt(1, tag_id);
+                    rS.setInt(2, post_id);
+                    rS.executeUpdate();
+                }
             }
             
         } catch (SQLException ex) {
@@ -224,10 +226,16 @@ public class UploadPostServlet extends HttpServlet {
                             } else if (fieldName.equals(TAGS_FIELD_NAME)) {
                                 tagList = Arrays.asList(value.split(" "));
                                 for (int i = 0; i < tagList.size(); i++) {
-                                    if (!StringUtils.isAlphanumeric(tagList.get(i))) {
+                                    String tag = tagList.get(i);
+                                    if (tag.charAt(0) != '#') {
                                         tagList.remove(i);
-                                    } else if (tagList.get(i).length() > 20) {
+                                    } else if (!StringUtils.isAlphanumeric(tag.substring(1))) {
                                         tagList.remove(i);
+                                    } else if (tag.length() > 20) {
+                                        tagList.remove(i);
+                                    } else {
+                                        //tag is valid, remove the '#' for storage
+                                        tagList.set(i, tag.substring(1));
                                     }
                                 }
                                 //now have list of alphanumeric tags of 20 chars or less
