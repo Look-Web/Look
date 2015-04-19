@@ -18,6 +18,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,13 +34,14 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
  * @author kevinholland
  */
 @WebServlet("/uploadServlet")
-public class UploadFileServlet extends HttpServlet {
+public class UploadPostServlet extends HttpServlet {
     private String IMAGE_DIRECTORY = null;
     private final String db = "look_db";
     private final String dbUser = "look_admin";
@@ -53,6 +56,7 @@ public class UploadFileServlet extends HttpServlet {
     private String title = null;
     private String description = null;
     private String tags = null;
+    private List<String> tagList;
     private String imageURL = null;
     
     private String imageExtension = null;
@@ -64,9 +68,9 @@ public class UploadFileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {   
-        Logger log = Logger.getLogger(UploadFileServlet.class.getName());
+        Logger log = Logger.getLogger(UploadPostServlet.class.getName());
         
-        URL imagesResourceURL = UploadFileServlet.class.getClassLoader().getResource("images/");
+        URL imagesResourceURL = UploadPostServlet.class.getClassLoader().getResource("images/");
         
         IMAGE_DIRECTORY = getServletContext().getRealPath("/images/");
         
@@ -123,11 +127,31 @@ public class UploadFileServlet extends HttpServlet {
                 getServletContext().getRequestDispatcher("/uploadResult.jsp").forward(request, response);
                 return;
             }
+            
+            //add tags to database
+            String addTagSQL = "INSERT IGNORE INTO tags (tag) " +
+                "VALUES (?); ";
+            String addRelationshipSQL = "INSERT INTO tags_has_posts(tags_tag_id, posts_post_id) " +
+                "VALUES (?, ?);";
+            for (String tag : tagList) {
+                PreparedStatement s = conn.prepareStatement(addTagSQL);
+                s.setString(1, tag);
+                s.executeUpdate();
+                ResultSet r = conn.createStatement().executeQuery(
+                        "SELECT tag_id FROM tags WHERE tag='" + tag + "';");
+                r.next();
+                int tag_id = r.getInt(1);
+                PreparedStatement rS = conn.prepareStatement(addRelationshipSQL);
+                rS.setInt(1, tag_id);
+                rS.setInt(2, post_id);
+                rS.executeUpdate();
+            }
+            
         } catch (SQLException ex) {
             message = "ERROR: " + ex.getMessage();
             ex.printStackTrace();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UploadFileServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UploadPostServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (conn != null) {
                 // closes the database connection
@@ -143,7 +167,8 @@ public class UploadFileServlet extends HttpServlet {
              
             // forwards to the message page
             //TODO change this to go to the image post
-            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+            response.sendRedirect(".");
+            //getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
     
@@ -154,7 +179,7 @@ public class UploadFileServlet extends HttpServlet {
         try {
             out = new FileOutputStream(f);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(UploadFileServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UploadPostServlet.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         try {
@@ -162,7 +187,7 @@ public class UploadFileServlet extends HttpServlet {
             fileContent.close();
             out.close();
         } catch (IOException ex) {
-            Logger.getLogger(UploadFileServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UploadPostServlet.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;
@@ -188,7 +213,8 @@ public class UploadFileServlet extends HttpServlet {
                         } else {
                             String fieldName = item.getFieldName();
                             String value = item.getString();
-                            if (value == null && !fieldName.equals(TAGS_FIELD_NAME)) {
+                            Logger.getLogger(UploadPostServlet.class.getName()).info(value);
+                            if (value.equals("") && !fieldName.equals(TAGS_FIELD_NAME)) {
                                 return false;
                             }
                             if (fieldName.equals(TITLE_FIELD_NAME)) {
@@ -196,15 +222,23 @@ public class UploadFileServlet extends HttpServlet {
                             } else if (fieldName.equals(DESCRIPTION_FIELD_NAME)) {
                                 description = value;
                             } else if (fieldName.equals(TAGS_FIELD_NAME)) {
-                                tags = value;
+                                tagList = Arrays.asList(value.split(" "));
+                                for (int i = 0; i < tagList.size(); i++) {
+                                    if (!StringUtils.isAlphanumeric(tagList.get(i))) {
+                                        tagList.remove(i);
+                                    } else if (tagList.get(i).length() > 20) {
+                                        tagList.remove(i);
+                                    }
+                                }
+                                //now have list of alphanumeric tags of 20 chars or less
                             }
                         }
                     }
                 } catch (FileUploadException ex) {
-                    Logger.getLogger(UploadFileServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UploadPostServlet.class.getName()).log(Level.SEVERE, null, ex);
                     return false;
                 } catch (Exception ex) {
-                    Logger.getLogger(UploadFileServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UploadPostServlet.class.getName()).log(Level.SEVERE, null, ex);
                     return false;
             }
         } else {
