@@ -20,28 +20,22 @@
     <!--MODAL BOXES-->
     <div id="loginModal" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
         <form action="authorizeLogin" method="post">
-            <div class="row"">
+            <div class="row">
                 <div class="small-12 columns">
                     <div class="row" style="text-align: center">
-                        <h1>Login</h1>
+                        <h4>Already have an account?</h4>
                     </div>
                     <div class="row">
-                        <label>
-                        Username
-                        <input type="text" name="username"> 
-                        </label>
+                        <input type="text" name="username" placeholder="Username"> 
                     </div>
                     <div class="row">
-                        <label>
-                        Password
-                        <input type="password" name="password">
-                        </label>
+                        <input type="password" name="password" placeholder="Password">
                     </div>
                     <div class="row" style="text-align: center;">
                         <input type="submit" value="Login" class="button"> 
                     </div>
                     <div class="row" style="text-align: center;">
-                        Don't have an account? <br /><a href="createAccount.jsp">Create one here!</a>
+                        Don't have an account? <br /><a href="createAccount.jsp">Sign up now!</a>
                     </div>
                 </div>
             </div>
@@ -74,7 +68,7 @@
                             if (session.getAttribute("user") != null) {
                                 out.print("<li><a href='logout.jsp'>Logout</a></li>");
                             } else {
-                                out.print("<li><a href='login.jsp' data-reveal-id='loginModal'>Sign Up/Login</a></li>");
+                                out.print("<li><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
                             }
                         %>
                     </ul>
@@ -86,9 +80,7 @@
         <div class="row" style="margin-top: 50px">
             <div class="small-12 columns"><h1 style="text-align: center">Recent Feed</h1></div>            
            
-        </div>
-                    
-        <div 
+        </div>                    
          
         <div class="row">
             <%  RecentFeed rf = new RecentFeed();
