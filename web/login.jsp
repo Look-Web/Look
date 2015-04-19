@@ -17,7 +17,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Look! Login</title>
+        <title>Look! | Login</title>
         <link rel="stylesheet" href="css/foundation.css" />
         <link rel="stylesheet" href="css/styles.css" />
         <script src="js/vendor/modernizr.js"></script>
@@ -55,7 +55,7 @@
             <div class="row">
                 <div class="panel large-4 large-offset-4 medium-6 medium-offset-3 small-12 columns login-box">
                     <div class="row" style="text-align: center">
-                        <h1>Login</h1>
+                        <h4>Already have an account? Log in here.</h4>
                     </div>
                     <div class="row">
                         <input type="text" name="username" placeholder="Username"> 
