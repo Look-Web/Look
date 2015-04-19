@@ -96,6 +96,12 @@
 
                 <section class="top-bar-section">
                     <ul class="right">
+                        <li>
+                            <form method='GET' action='search'>
+                                <input type='text' name='tag' placeholder='Search...'/>
+                                <input type='submit' value='Search'/>
+                            </form>
+                        </li>
                         <li class="active"><a href="#">Recent Feed</a></li>
                         <li><a href="upload.jsp">Upload an Image</a></li>
                         <%
