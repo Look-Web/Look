@@ -41,7 +41,53 @@
                         <input type="submit" value="Login" class="button"> 
                     </div>
                     <div class="row" style="text-align: center;">
-                        Don't have an account? <br /><a href="createAccount.jsp">Create one here!</a>
+                        Don't have an account? <br /><a href="createAccount.jsp" data-reveal-id='registerModal'>Create one here!</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+    
+    <div id="registerModal" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+        <form action="createUser" method="post">
+            <div class="row"">
+                <div class="small-12 columns">
+                    <div class="row" style="text-align: center">
+                        <h1>Register</h1>
+                    </div>
+                    <div class="row">
+                        <label>
+                        Username
+                        <input type="text" name="username"> 
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                        Password
+                        <input type="password" name="password">
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                        Repeat Password
+                        <input type="password" name="repeatPassword">
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                        First Name
+                        <input type="text" name="firstName">
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                        Last Name
+                        <input type="text" name="lastName">
+                        </label>
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        <input type="submit" value="Register" class="button"> 
                     </div>
                 </div>
             </div>
