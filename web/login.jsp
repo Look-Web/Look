@@ -63,22 +63,16 @@
                         <h1>Login</h1>
                     </div>
                     <div class="row">
-                        <label>
-                        Username
-                        <input type="text" name="username"> 
-                        </label>
+                        <input type="text" name="username" placeholder="Username"> 
                     </div>
                     <div class="row">
-                        <label>
-                        Password
-                        <input type="password" name="password">
-                        </label>
+                        <input type="password" name="password" placeholder="Password">
                     </div>
                     <div class="row" style="text-align: center;">
                         <input type="submit" value="Login" class="button"> 
                     </div>
                     <div class="row" style="text-align: center;">
-                        Don't have an account? <br /><a href="createAccount.jsp">Create one here!</a>
+                        Don't have an account? <br /><a href="createAccount.jsp">Sign up here!</a>
                     </div>
                 </div>
             </div>
