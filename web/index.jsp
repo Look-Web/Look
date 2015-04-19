@@ -98,7 +98,7 @@
                     <ul class="right">
                         <li>
                             <form method='GET' action='search'>
-                                <input type='text' name='tag' placeholder='Search...'/>
+                                <input type='text' name='tag' placeholder='search by tag here'/>
                                 <input type='submit' value='Search'/>
                             </form>
                         </li>
