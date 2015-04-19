@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <%  //if not logged in
     if(session.getAttribute("user") == null) { 
-        session.setAttribute("destination", "/upload.jsp");
+        session.setAttribute("destination", "upload.jsp");
         request.getRequestDispatcher("login.jsp").forward(request, response);
 }
 %>
