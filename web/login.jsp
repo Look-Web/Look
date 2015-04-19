@@ -57,7 +57,7 @@
         </div>
         
         <form action="authorizeLogin" method="post">
-            <div class="row"">
+            <div class="row">
                 <div class="panel large-4 large-offset-4 medium-6 medium-offset-3 small-12 columns login-box">
                     <div class="row" style="text-align: center">
                         <h1>Login</h1>

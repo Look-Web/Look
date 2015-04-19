@@ -32,7 +32,7 @@
                     <td><input type="text" name="description" size="50"/></td>
                 </tr>
                 <tr>
-                    <td>Tags: (Separated by commas)</td>
+                    <td>Tags: (Separated by spaces)</td>
                     <td><input type="text" name="tags" size="50"/></td>
                 </tr>
                 <tr>

@@ -27,6 +27,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 @WebServlet("/createUser")
 public class CreateUserServlet extends HttpServlet {
+    private boolean stop = false;
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
@@ -102,6 +103,10 @@ public class CreateUserServlet extends HttpServlet {
             }
         }
         
+        if (stop) {
+            return;
+        }
+        
         try {
             String createUserSQL = "INSERT INTO users (user_id, username, pass, first_name, last_name) "
                 + "VALUES (?, ?, PASSWORD(?), ?, ?);";
@@ -139,6 +144,7 @@ public class CreateUserServlet extends HttpServlet {
     }
     
     private void stop(HttpServletRequest request, HttpServletResponse response, String message) {
+        stop = true;
         request.setAttribute("message", message);
         try {
             request.getRequestDispatcher("/createAccount.jsp").forward(request, response);
