@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="com.look.DatabaseUserUtils"%>
+<%@page import="com.look.RecentFeed" %>
 <!DOCTYPE html>
 <% if(session.getAttribute("user") != null) { 
         response.sendRedirect("index.jsp");
@@ -14,18 +17,71 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Look! Login</title>
+        <link rel="stylesheet" href="css/foundation.css" />
+        <link rel="stylesheet" href="css/styles.css" />
     </head>
     <body>
-        <h1>Try again</h1>
-        <h3>Please try again</h3>
-        <p>The username or password was incorrect.<p>
+        <div class="contain-to-grid">
+            <nav class="top-bar" data-topbar data-options="is_hover: false" role="navigation">
+                <ul class="title-area">
+                    <li class="name">
+                        <h1><a href="#">Look!</a></h1>
+                    </li>
+                    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+                </ul>
+
+                <section class="top-bar-section">
+                    <ul class="right">
+                        <li class="active"><a href="#">Recent Feed</a></li>
+                        <li><a href="upload.jsp">Upload an Image</a></li>
+                        <%
+                            if (session.getAttribute("user") != null) {
+                                out.print("<li class='has-dropdown'><a href='#'>Hello, ");
+                                out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
+                                out.print("!</a><ul class='dropdown'><li><a href='logout.jsp'>Logout</a></li></ul></li>");
+                            } else {
+                                out.print("<li><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
+                            }
+                        %>
+                    </ul>
+                </section>
+            </nav>
+        </div>
         
         <form action="authorizeLogin" method="post">
-            Username:<input type="text" name="username"> 
-            Password:<input type="password" name="password">
-            <input type="submit" value="Login"> 
+            <div class="row"">
+                <div class="panel large-4 large-offset-4 medium-6 medium-offset-3 small-12 columns login-box">
+                    <div class="row" style="text-align: center">
+                        <h1>Login</h1>
+                    </div>
+                    <div class="row">
+                        <label>
+                        Username
+                        <input type="text" name="username"> 
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                        Password
+                        <input type="password" name="password">
+                        </label>
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        <p style="color: red;">You entered an incorrect username or password. Please try again.</p>
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        <input type="submit" value="Login" class="button"> 
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        Don't have an account? <br /><a href="createAccount.jsp">Create one here!</a>
+                    </div>
+                </div>
+            </div>
         </form>
-        <br/>
-        Don't have an account? <a href="createAccount.jsp">Create one here!</a>
+    <script src="js/vendor/jquery.js"></script>
+        <script src="js/foundation.min.js"></script>
+        <script>
+            $(document).foundation();
+        </script>
     </body>
 </html>
