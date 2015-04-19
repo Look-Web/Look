@@ -18,7 +18,7 @@
     </head>
     
     <!--MODAL BOXES-->
-    <div id="loginModal" class="reveal-modal medium" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+    <div id="loginModal" class="reveal-modal small login-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
         <form action="authorizeLogin" method="post">
             <div class="row">
                 <div class="small-12 columns">
@@ -129,7 +129,7 @@
             %>
         </div>
 
-        <script src="js/vendor/jquery.js"></script>
+        e<script src="js/vendor/jquery.js"></script>
         <script src="js/foundation.min.js"></script>
         <script>
             $(document).foundation();

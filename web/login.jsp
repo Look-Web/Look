@@ -25,30 +25,25 @@
     <body>
         
         <div class="contain-to-grid">
-            <nav class="top-bar" data-topbar role="navigation">
+            <nav class="top-bar" data-topbar data-options="is_hover: false" role="navigation">
                 <ul class="title-area">
                     <li class="name">
-                        <h1><a href="index.jsp">Look!</a></h1>
+                        <h1><a href="#">Look!</a></h1>
                     </li>
                     <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
                 </ul>
 
                 <section class="top-bar-section">
                     <ul class="right">
-                        <%
-                            if (session.getAttribute("user") != null) {
-                                out.print("<li><a>Hello, ");
-                                out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
-                                out.print("!</a></li>");
-                            }
-                        %>
-                        <li><a href="index.jsp">Recent Feed</a></li>
+                        <li class="active"><a href="#">Recent Feed</a></li>
                         <li><a href="upload.jsp">Upload an Image</a></li>
                         <%
                             if (session.getAttribute("user") != null) {
-                                out.print("<li><a href='logout.jsp'>Logout</a></li>");
+                                out.print("<li class='has-dropdown'><a href='#'>Hello, ");
+                                out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
+                                out.print("!</a><ul class='dropdown'><li><a href='logout.jsp'>Logout</a></li></ul></li>");
                             } else {
-                                out.print("<li class='active'><a href='login.jsp'>Sign Up/Login</a></li>");
+                                out.print("<li><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
                             }
                         %>
                     </ul>
@@ -83,5 +78,11 @@
                 </div>
             </div>
         </form>
+    
+    <script src="js/vendor/jquery.js"></script>
+        <script src="js/foundation.min.js"></script>
+        <script>
+            $(document).foundation();
+        </script>
     </body>
 </html>
