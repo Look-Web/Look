@@ -63,6 +63,25 @@ public class DatabaseUserUtils {
         return null;
     }
     
+    public static String getLastNameFromUsername(String username) {
+        Connection conn = null;
+        try {
+            conn = LookDatabaseUtils.getNewConnection();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DatabaseUserUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ResultSet r;
+        try {
+            r = conn.createStatement().executeQuery("SELECT last_name FROM users WHERE username='" + username + "';");
+            if (r.next()) {
+                return r.getString("last_name");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseUserUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     public static String getUsernameFromUserID(int id) {
         Connection conn = null;
         try {
