@@ -41,9 +41,10 @@
                             if (session.getAttribute("user") != null) {
                                 out.print("<li class='has-dropdown'><a href='#'>Hello, ");
                                 out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
-                                out.print("!</a><ul class='dropdown'><li><a href='logout.jsp'>Logout</a></li></ul></li>");
+                                out.print("!</a><ul class='dropdown'><li><a href='profile.jsp'>Profile</a></li>");
+                                out.print("<li><a href='logout.jsp'>Logout</a></li></ul></li>");
                             } else {
-                                out.print("<li class='active'><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
+                                out.print("<li><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
                             }
                         %>
                     </ul>
