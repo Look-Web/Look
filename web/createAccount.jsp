@@ -66,46 +66,46 @@
                     </div>
                     <div class="row">
                         <label>
-                        Username
-                        <input type="text" name="username"> 
+                            <input type="text" name="username" placeholder="Username" value="${requestScope.username}"> 
                         </label>
                     </div>
                     <div class="row">
                         <label>
-                        Password
-                        <input type="password" name="password">
+                        <input type="password" name="password" placeholder="Password">
                         </label>
                     </div>
                     <div class="row">
                         <label>
-                        Repeat Password
-                        <input type="password" name="repeatPassword">
+                        <input type="password" name="repeatPassword" placeholder="Repeat Password">
                         </label>
                     </div>
                     <div class="row">
                         <label>
-                        First Name
-                        <input type="text" name="firstName">
+                            <input type="text" name="firstName" placeholder="First Name" value="${requestScope.firstName}">
                         </label>
                     </div>
                     <div class="row">
                         <label>
-                        Last Name
-                        <input type="text" name="lastName">
+                            <input type="text" name="lastName" placeholder="Last Name" value="${requestScope.lastName}">
                         </label>
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        <p style="color: red;">
+                            <%
+                                if (request.getAttribute("message") != null) {
+                                    out.print(request.getAttribute("message"));
+                                }
+                            %>
+                        </p>
                     </div>
                     <div class="row" style="text-align: center;">
                         <input type="submit" value="Register" class="button"> 
                     </div>
+                    
+                    
                 </div>
             </div>
         </form>
-        
-        <%
-            if (request.getAttribute("message") != null) {
-                out.print(request.getAttribute("message"));
-            }
-        %>
         
         <script src="js/vendor/jquery.js"></script>
         <script src="js/foundation.min.js"></script>

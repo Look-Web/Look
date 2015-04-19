@@ -35,7 +35,7 @@
                         <input type="submit" value="Login" class="button"> 
                     </div>
                     <div class="row" style="text-align: center;">
-                        Don't have an account? <br /><a href="createAccount.jsp" data-reveal-id='registerModal'>Create one here!</a>
+                        Don't have an account? <br /><a href="createAccount.jsp" data-reveal-id='registerModal'>Sign up here!</a>
                     </div>
                 </div>
             </div>
@@ -45,39 +45,34 @@
     
     <div id="registerModal" class="reveal-modal medium" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
         <form action="createUser" method="post">
-            <div class="row"">
+            <div class="row">
                 <div class="small-12 columns">
                     <div class="row" style="text-align: center">
-                        <h1>Register</h1>
+                        <h2>Register</h2>
                     </div>
                     <div class="row">
                         <label>
-                        Username
-                        <input type="text" name="username"> 
+                        <input type="text" name="username" placeholder="Username"> 
                         </label>
                     </div>
                     <div class="row">
                         <label>
-                        Password
-                        <input type="password" name="password">
+                        <input type="password" name="password" placeholder="Password">
                         </label>
                     </div>
                     <div class="row">
                         <label>
-                        Repeat Password
-                        <input type="password" name="repeatPassword">
+                        <input type="password" name="repeatPassword" placeholder="Repeat Password">
                         </label>
                     </div>
                     <div class="row">
                         <label>
-                        First Name
-                        <input type="text" name="firstName">
+                        <input type="text" name="firstName" placeholder="First Name">
                         </label>
                     </div>
                     <div class="row">
                         <label>
-                        Last Name
-                        <input type="text" name="lastName">
+                        <input type="text" name="lastName" placeholder="Last Name">
                         </label>
                     </div>
                     <div class="row" style="text-align: center;">

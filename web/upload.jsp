@@ -58,24 +58,24 @@
             <div class="row">
                 <div class="panel large-6 large-offset-3 medium-8 medium-offset-2 small-12 columns login-box">
                     <div class="row" style="text-align: center">
-                        <h1>File Upload</h1>
+                        <h3>Image Upload</h3>
                     </div>
                     <div class="row">
                         <label>
-                        Title
+                            Title
                         <input type="text" placeholder="Image Title" name="title" > 
                         </label>
                     </div>
                     <div class="row">
                         <label>
                         Description
-                        <textarea name="description" placeholder="Enter a brief description of the image."></textarea>
+                        <textarea name="description" placeholder="enter a brief description of the image."></textarea>
                         </label>
                     </div>
                     <div class="row">
                         <label>
                         Tags
-                        <input type="text" placeholder="enter, tags, separated, by, commas" name="tags" />
+                        <input type="text" placeholder="enter #hashtags separated by spaces" name="tags" />
                         </label>
                     </div>
                     <div class="row">
