@@ -99,5 +99,24 @@ public class DatabaseUserUtils {
             Logger.getLogger(DatabaseUserUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }    
+    }
+    
+    public static int getUserIDFromUsername(String username) {
+        Connection conn = null;
+        try {
+            conn = LookDatabaseUtils.getNewConnection();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DatabaseUserUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ResultSet r;
+        try {
+            r = conn.createStatement().executeQuery("SELECT user_id FROM users WHERE username='" + username + "';");
+            if (r.next()) {
+                return r.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseUserUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }  
 }

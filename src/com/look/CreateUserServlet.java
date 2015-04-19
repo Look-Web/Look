@@ -31,6 +31,8 @@ public class CreateUserServlet extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+        Logger log = Logger.getLogger(CreateUserServlet.class.getName());
+        log.info("Starting user servlet");
         Connection conn = null;
         String message = null;
         boolean createSuccess;

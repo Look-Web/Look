@@ -42,6 +42,8 @@
                 </tr>
             </table>
         </form>
+        <br/>
         <a href="deleteAccount" style="color: red;">Delete account</a>
+        <!-- TODO MODAL ARE YOU SURE???-->
     </body>
 </html>
