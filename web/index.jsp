@@ -98,8 +98,12 @@
                     <ul class="right">
                         <li>
                             <form method='GET' action='search'>
-                                <input type='text' name='tag' placeholder='search by tag here'/>
-                                <input type='submit' value='Search'/>
+                                <table>
+                                    <tr>
+                                        <td><input type='text' name='tag' placeholder='search by tag here'/></td>
+                                        <td><input type='submit' value='Search' class='button'/></td>
+                                    </tr>
+                                </table>
                             </form>
                         </li>
                         <li class="active"><a href="#">Recent Feed</a></li>
