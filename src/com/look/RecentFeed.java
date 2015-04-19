@@ -2,6 +2,7 @@ package com.look;
 
 import static java.lang.System.out;
 import java.sql.*;
+import org.ocpsoft.prettytime.PrettyTime;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -37,6 +38,7 @@ public class RecentFeed {
         }
         ResultSet r;
         String output = "";
+        PrettyTime p = new PrettyTime();
         try {
             r = s.executeQuery("SELECT * FROM posts ORDER BY time_posted DESC");
             //out.println("<pre>");
@@ -47,14 +49,18 @@ public class RecentFeed {
                 ResultSet userResult = sUser.executeQuery(query);
                 userResult.next();
                 String user = userResult.getString("username");
+                Timestamp stamp = r.getTimestamp(6);
+                Date date = new Date(stamp.getTime());
+                output += String.format("<a href='%s'>", "#"); // TODO: Replace this with the image link
                 output += "<div class='large-3 medium-4 small-12 columns'>";
                 output += "<div class='panel feed-image'>";
                 output += String.format("<div class='feed-image-src' style='background-image: url(images/%s)'></div>", r.getString(5));
                 output += String.format("<span class='feed-image-title'>%s</span><br />", r.getString(2));
                 output += String.format("<span class='feed-image-attribution'>posted by %s</span><br />", user);
-                output += String.format("<span class='feed-image-timestamp'>%s</span>", r.getTimestamp(6).toString());
+                output += String.format("<span class='feed-image-timestamp'>%s</span>", p.format(date));
                 output += "</div>";
                 output += "</div>";
+                output += "</a>";
             }
         } catch (SQLException e) {
             out.println(e);

@@ -18,12 +18,37 @@
     </head>
     
     <!--MODAL BOXES-->
-    <div id="loginModal" class="reveal-modal small" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-        <form>
+    <div id="loginModal" class="reveal-modal small login-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+        <form action="authorizeLogin" method="post">
+            <div class="row">
+                <div class="small-12 columns">
+                    <div class="row" style="text-align: center">
+                        <h4>Already have an account? Log in here.</h4>
+                    </div>
+                    <div class="row">
+                        <input type="text" name="username" placeholder="Username"> 
+                    </div>
+                    <div class="row">
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        <input type="submit" value="Login" class="button"> 
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        Don't have an account? <br /><a href="createAccount.jsp" data-reveal-id='registerModal'>Create one here!</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+    
+    <div id="registerModal" class="reveal-modal medium" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+        <form action="createUser" method="post">
             <div class="row"">
                 <div class="small-12 columns">
                     <div class="row" style="text-align: center">
-                        <h1>Login</h1>
+                        <h1>Register</h1>
                     </div>
                     <div class="row">
                         <label>
@@ -37,11 +62,26 @@
                         <input type="password" name="password">
                         </label>
                     </div>
-                    <div class="row" style="text-align: center;">
-                        <input type="submit" value="Login" class="button"> 
+                    <div class="row">
+                        <label>
+                        Repeat Password
+                        <input type="password" name="repeatPassword">
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                        First Name
+                        <input type="text" name="firstName">
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                        Last Name
+                        <input type="text" name="lastName">
+                        </label>
                     </div>
                     <div class="row" style="text-align: center;">
-                        Don't have an account? <br /><a href="createAccount.jsp">Create one here!</a>
+                        <input type="submit" value="Register" class="button"> 
                     </div>
                 </div>
             </div>
@@ -51,7 +91,7 @@
     
 
         <div class="contain-to-grid">
-            <nav class="top-bar" data-topbar role="navigation">
+            <nav class="top-bar" data-topbar data-options="is_hover: false" role="navigation">
                 <ul class="title-area">
                     <li class="name">
                         <h1><a href="#">Look!</a></h1>
@@ -61,20 +101,15 @@
 
                 <section class="top-bar-section">
                     <ul class="right">
-                        <%
-                            if (session.getAttribute("user") != null) {
-                                out.print("<li><a>Hello, ");
-                                out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
-                                out.print("!</a></li>");
-                            }
-                        %>
                         <li class="active"><a href="#">Recent Feed</a></li>
                         <li><a href="upload.jsp">Upload an Image</a></li>
                         <%
                             if (session.getAttribute("user") != null) {
-                                out.print("<li><a href='logout.jsp'>Logout</a></li>");
+                                out.print("<li class='has-dropdown'><a href='#'>Hello, ");
+                                out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
+                                out.print("!</a><ul class='dropdown'><li><a href='logout.jsp'>Logout</a></li></ul></li>");
                             } else {
-                                out.print("<li><a href='login.jsp' data-reveal-id='loginModal'>Sign Up/Login</a></li>");
+                                out.print("<li><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
                             }
                         %>
                     </ul>
@@ -86,9 +121,7 @@
         <div class="row" style="margin-top: 50px">
             <div class="small-12 columns"><h1 style="text-align: center">Recent Feed</h1></div>            
            
-        </div>
-                    
-        <div 
+        </div>                    
          
         <div class="row">
             <%  RecentFeed rf = new RecentFeed();
@@ -96,7 +129,7 @@
             %>
         </div>
 
-        <script src="js/vendor/jquery.js"></script>
+        e<script src="js/vendor/jquery.js"></script>
         <script src="js/foundation.min.js"></script>
         <script>
             $(document).foundation();
