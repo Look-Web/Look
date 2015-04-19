@@ -113,9 +113,8 @@
         </div>
              
 
-        <div class="row" style="margin-top: 50px">
-            <div class="small-12 columns"><h1 style="text-align: center">Recent Feed</h1></div>            
-           
+        <div class="row" style="margin-top: 15px">
+            <div class="small-12 columns"><h2 style="text-align: center">Recent Feed</h2></div>
         </div>                    
          
         <div class="row">
