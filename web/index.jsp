@@ -89,7 +89,7 @@
             <nav class="top-bar" data-topbar data-options="is_hover: false" role="navigation">
                 <ul class="title-area">
                     <li class="name">
-                        <h1><a href="#">Look!</a></h1>
+                        <h1><a href=".">Look!</a></h1>
                     </li>
                     <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
                 </ul>
@@ -106,7 +106,7 @@
                                 </table>
                             </form>
                         </li>
-                        <li class="active"><a href="#">Recent Feed</a></li>
+                        <li class="active"><a href=".">Recent Feed</a></li>
                         <li><a href="upload.jsp">Upload an Image</a></li>
                         <%
                             if (session.getAttribute("user") != null) {
