@@ -26,6 +26,9 @@ public class SearchResultServlet extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String tag = request.getParameter("tag");
+        if (tag.charAt(0) == '#') {
+            tag = tag.substring(1);
+        }
         Connection conn = null;
         
         request.setAttribute("searchTag", "#" + tag);
