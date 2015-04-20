@@ -29,8 +29,10 @@
                 //find num of results
                 if (request.getAttribute("postIDs") != null && !request.getAttribute("postIDs").equals("")) {
                     List<String> results = Arrays.asList(request.getAttribute("postIDs").toString().split(" "));
-                    if (results.size() > 0) {
+                    if (results.size() > 1) {
                         out.print("Found " + results.size() + " results for " + request.getAttribute("searchTag"));
+                    } else if (results.size() == 1) {
+                        out.print("Found 1 result for " + request.getAttribute("searchTag"));
                     }
                 } else {
                     out.print("No results found for " + request.getAttribute("searchTag"));
