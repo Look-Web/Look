@@ -37,6 +37,7 @@ public class RecentFeed {
             return e.getMessage();
         }
         ResultSet r;
+        s.setFetchSize(64);
         String output = "";
         PrettyTime p = new PrettyTime();
         try {

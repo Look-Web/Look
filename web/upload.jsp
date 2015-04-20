@@ -37,13 +37,21 @@
 
                 <section class="top-bar-section">
                     <ul class="right">
+                        <li class="has-form">
+                            <form method='GET' action='search'>
+                            <div class="row">
+
+                                <input class="search-box" type='text' name='tag' placeholder='Search by tag here'>
+                            </div>
+                            </form>
+                        </li>
                         <li><a href=".">Recent Feed</a></li>
                         <li class="active"><a href="upload.jsp">Upload an Image</a></li>
                         <%
                             if (session.getAttribute("user") != null) {
                                 out.print("<li class='has-dropdown'><a href='#'>Hello, ");
                                 out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
-                                out.print("!</a><ul class='dropdown'><li><a href='profile.jsp'>Profile</a></li>");
+                                out.print("!</a><ul class='dropdown'><li><a href='myProfile'>Profile</a></li>");
                                 out.print("<li><a href='account.jsp'>Account Settings</a></li>");
                                 out.print("<li><a href='logout.jsp'>Logout</a></li></ul></li>");
                             } else {
