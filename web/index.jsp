@@ -96,13 +96,24 @@
 
                 <section class="top-bar-section">
                     <ul class="right">
+                        <li>
+                            <form method='GET' action='search'>
+                                <table>
+                                    <tr>
+                                        <td><input type='text' name='tag' placeholder='search by tag here'/></td>
+                                        <td><input type='submit' value='Search'/></td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </li>
                         <li class="active"><a href="#">Recent Feed</a></li>
                         <li><a href="upload.jsp">Upload an Image</a></li>
                         <%
                             if (session.getAttribute("user") != null) {
                                 out.print("<li class='has-dropdown'><a href='#'>Hello, ");
                                 out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
-                                out.print("!</a><ul class='dropdown'><li><a href='logout.jsp'>Logout</a></li></ul></li>");
+                                out.print("!</a><ul class='dropdown'><li><a href='profile.jsp'>Profile</a></li>");
+                                out.print("<li><a href='logout.jsp'>Logout</a></li></ul></li>");
                             } else {
                                 out.print("<li><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
                             }
@@ -128,5 +139,4 @@
         <script>
             $(document).foundation();
         </script>
-    
 </html>

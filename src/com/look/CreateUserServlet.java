@@ -28,12 +28,13 @@ import org.apache.commons.lang3.StringUtils;
 @WebServlet("/createUser")
 public class CreateUserServlet extends HttpServlet {
     private boolean stop = false;
+    Logger log = Logger.getLogger(CreateUserServlet.class.getName());
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+        stop = false;
         Connection conn = null;
         String message = null;
-        boolean createSuccess;
         try {
             conn = LookDatabaseUtils.getNewConnection();
         } catch (ClassNotFoundException | SQLException ex) {
@@ -134,7 +135,8 @@ public class CreateUserServlet extends HttpServlet {
             Logger.getLogger(CreateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        //it worked!!! forward to login jsp
+        //it worked!!! forward to index jsp
+        Logger.getLogger(CreateUserServlet.class.getName()).info("Account created");
         request.getSession().setAttribute("user", username);
         try {
             response.sendRedirect("index.jsp");

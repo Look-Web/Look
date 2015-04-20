@@ -16,7 +16,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Look! Login</title>
+        <title>Look! | Login</title>
         <link rel="stylesheet" href="css/foundation.css" />
         <link rel="stylesheet" href="css/styles.css" />
     </head>
@@ -52,18 +52,16 @@
             <div class="row">
                 <div class="panel large-4 large-offset-4 medium-6 medium-offset-3 small-12 columns login-box">
                     <div class="row" style="text-align: center">
-                        <h1>Login</h1>
+                        <h4>Already have an account? Log in here.</h4>
                     </div>
                     <div class="row">
                         <label>
-                        Username
-                        <input type="text" name="username"> 
+                        <input type="text" name="username" placeholder="Username"> 
                         </label>
                     </div>
                     <div class="row">
                         <label>
-                        Password
-                        <input type="password" name="password">
+                        <input type="password" name="password" placeholder="Password">
                         </label>
                     </div>
                     <div class="row" style="text-align: center;">

@@ -17,7 +17,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Look! Login</title>
+        <title>Look! | Login</title>
         <link rel="stylesheet" href="css/foundation.css" />
         <link rel="stylesheet" href="css/styles.css" />
         <script src="js/vendor/modernizr.js"></script>
@@ -41,9 +41,10 @@
                             if (session.getAttribute("user") != null) {
                                 out.print("<li class='has-dropdown'><a href='#'>Hello, ");
                                 out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
-                                out.print("!</a><ul class='dropdown'><li><a href='logout.jsp'>Logout</a></li></ul></li>");
+                                out.print("!</a><ul class='dropdown'><li><a href='profile.jsp'>Profile</a></li>");
+                                out.print("<li><a href='logout.jsp'>Logout</a></li></ul></li>");
                             } else {
-                                out.print("<li class='active'><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
+                                out.print("<li><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
                             }
                         %>
                     </ul>
@@ -55,7 +56,7 @@
             <div class="row">
                 <div class="panel large-4 large-offset-4 medium-6 medium-offset-3 small-12 columns login-box">
                     <div class="row" style="text-align: center">
-                        <h1>Login</h1>
+                        <h4>Already have an account? Log in here.</h4>
                     </div>
                     <div class="row">
                         <input type="text" name="username" placeholder="Username"> 

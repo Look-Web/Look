@@ -62,4 +62,61 @@ public class DatabaseUserUtils {
         }
         return null;
     }
+    
+    public static String getLastNameFromUsername(String username) {
+        Connection conn = null;
+        try {
+            conn = LookDatabaseUtils.getNewConnection();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DatabaseUserUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ResultSet r;
+        try {
+            r = conn.createStatement().executeQuery("SELECT last_name FROM users WHERE username='" + username + "';");
+            if (r.next()) {
+                return r.getString("last_name");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseUserUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public static String getUsernameFromUserID(int id) {
+        Connection conn = null;
+        try {
+            conn = LookDatabaseUtils.getNewConnection();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DatabaseUserUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ResultSet r;
+        try {
+            r = conn.createStatement().executeQuery("SELECT username FROM users WHERE user_id='" + id + "';");
+            if (r.next()) {
+                return r.getString(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseUserUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public static int getUserIDFromUsername(String username) {
+        Connection conn = null;
+        try {
+            conn = LookDatabaseUtils.getNewConnection();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DatabaseUserUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ResultSet r;
+        try {
+            r = conn.createStatement().executeQuery("SELECT user_id FROM users WHERE username='" + username + "';");
+            if (r.next()) {
+                return r.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseUserUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }  
 }

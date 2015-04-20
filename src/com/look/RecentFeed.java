@@ -51,7 +51,8 @@ public class RecentFeed {
                 String user = userResult.getString("username");
                 Timestamp stamp = r.getTimestamp(6);
                 Date date = new Date(stamp.getTime());
-                output += String.format("<a href='%s'>", "#"); // TODO: Replace this with the image link
+                int post_id = r.getInt("post_id");
+                output += String.format("<a href='%s'>", "./post?id=" + post_id); // TODO: Replace this with the image link
                 output += "<div class='large-3 medium-4 small-12 columns'>";
                 output += "<div class='panel feed-image'>";
                 output += String.format("<div class='feed-image-src' style='background-image: url(images/%s)'></div>", r.getString(5));
