@@ -6,19 +6,25 @@
 package com.look;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.ocpsoft.prettytime.PrettyTime;
 
 /**
  *
  * @author kevinholland
  */
 public class SearchResultDisplay {
-    
+
+    public static Connection conn;
+
     public static String displaySearch(String postIDs) {
         if (postIDs.equals("")) {
             //no results were found
@@ -27,12 +33,12 @@ public class SearchResultDisplay {
         String output = "";
         List<String> postIDList = Arrays.asList(postIDs.split(" "));
         //TODO any initialization to the output
-        
+
         //results were found, display posts
-        Connection conn = null;
+        conn = null;
         try {
             conn = LookDatabaseUtils.getNewConnection();
-            
+
             for (String postID : postIDList) {
                 int post_id = Integer.parseInt(postID);
                 ResultSet post = conn.createStatement().executeQuery(
@@ -40,23 +46,37 @@ public class SearchResultDisplay {
                 post.first();
                 output += displayPost(post);
             }
-            
+
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(SearchResultDisplay.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return output;
     }
-    
+
     private static String displayPost(ResultSet post) throws SQLException {
-        String postOutput = "";
-        postOutput += post.getString("title") + "<br/>";
-        postOutput += post.getString("description") + "<br/>";
-        int user_id = post.getInt("users_user_id");
-        postOutput += DatabaseUserUtils.getUsernameFromUserID(user_id) + "<br/>";
-        postOutput += LookDatabaseUtils.getTagsFromPostID(post.getInt("post_id")) + "<br/>";
-        postOutput += post.getString("time_posted") + "<br/>";
-        postOutput += "<img src='images/" + post.getString("image_url") + "'/><br/>";
-        return postOutput;
+        Statement sUser = conn.createStatement();
+        int userID = post.getInt(4);
+        String query = "SELECT username FROM users WHERE user_id=" + userID;
+        ResultSet userResult = sUser.executeQuery(query);
+        userResult.next();
+
+        PrettyTime p = new PrettyTime();
+        String output = "";
+        int post_id = post.getInt("post_id");
+        String user = userResult.getString("username");
+        Timestamp stamp = post.getTimestamp(6);
+        Date date = new Date(stamp.getTime());
+        output += String.format("<a href='%s'>", "./post?id=" + post_id); // TODO: Replace this with the image link
+        output += "<div class='large-3 medium-4 small-12 columns'>";
+        output += "<div class='panel feed-image'>";
+        output += String.format("<div class='feed-image-src' style='background-image: url(images/%s)'></div>", post.getString(5));
+        output += String.format("<span class='feed-image-title'>%s</span><br />", post.getString(2));
+        output += String.format("<span class='feed-image-attribution'>posted by %s</span><br />", user);
+        output += String.format("<span class='feed-image-timestamp'>%s</span>", p.format(date));
+        output += "</div>";
+        output += "</div>";
+        output += "</a>";
+        return output;
     }
 }
