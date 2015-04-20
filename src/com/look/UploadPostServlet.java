@@ -58,8 +58,11 @@ public class UploadPostServlet extends HttpServlet {
     private String tags = null;
     private List<String> tagList;
     private String imageURL = null;
+    private String filename = null;
     
     private int post_id;
+    
+    private String message;
     
     private String imageExtension = null;
     
@@ -79,9 +82,13 @@ public class UploadPostServlet extends HttpServlet {
         user = request.getSession().getAttribute("user").toString();
         
         boolean success = handleRequest(request);
-        log.info("Request handled successfully: " + success);
         if (success == false) {
-            getServletContext().getRequestDispatcher("/uploadResult.jsp").forward(request, response);
+            request.setAttribute("title", title);
+            request.setAttribute("description", description);
+            request.setAttribute("tags", tags);
+            request.setAttribute("filename", filename);
+            request.setAttribute("message", message);
+            getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
             return;
         }
         
@@ -126,7 +133,7 @@ public class UploadPostServlet extends HttpServlet {
                 request.setAttribute("message", "Failed to upload");
                 Statement removeStatement = conn.createStatement();
                 removeStatement.executeUpdate("DELETE FROM posts WHERE post_id=" + post_id + ";");
-                getServletContext().getRequestDispatcher("/uploadResult.jsp").forward(request, response);
+                getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
                 return;
             }
             
@@ -165,11 +172,7 @@ public class UploadPostServlet extends HttpServlet {
                     ex.printStackTrace();
                 }
             }
-            //TODO Implement upload success message
-            // sets the message in request scope
-            request.setAttribute("message", "Success");
              
-            // forwards to the message page
             //TODO change this to go to the image post
             response.sendRedirect("post?id=" + post_id);
             //getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
@@ -210,7 +213,13 @@ public class UploadPostServlet extends HttpServlet {
                         if (!item.isFormField()) {                            
                             // Process form file field (input type="file").
                             String fieldName = item.getFieldName();
+                            String filename = item.getName();
+                            if (item.getName().equals("")) {
+                                message = "Please choose an image";
+                                return false;
+                            }
                             String clientFileName = FilenameUtils.getName("TEMP_"+item.getName().replaceAll(" ", ""));
+                            
                             imageExtension = FilenameUtils.getExtension(clientFileName);
                             imageURL = clientFileName + "." + imageExtension;
                             fileContent = item.getInputStream();
@@ -218,7 +227,8 @@ public class UploadPostServlet extends HttpServlet {
                             String fieldName = item.getFieldName();
                             String value = item.getString();
                             Logger.getLogger(UploadPostServlet.class.getName()).info(value);
-                            if (value.equals("") && !fieldName.equals(TAGS_FIELD_NAME)) {
+                            if (value.equals("") && (fieldName.equals("title"))) {
+                                message = "Please enter a title";
                                 return false;
                             }
                             if (fieldName.equals(TITLE_FIELD_NAME)) {

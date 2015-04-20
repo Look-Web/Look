@@ -41,7 +41,8 @@
                             if (session.getAttribute("user") != null) {
                                 out.print("<li class='has-dropdown active'><a href='#'>Hello, ");
                                 out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
-                                out.print("!</a><ul class='dropdown'><li class='active'><a href='profile.jsp'>Profile</a></li>");
+                                out.print("!</a><ul class='dropdown active'><li class='active'><a href='profile.jsp'>Profile</a></li>");
+                                out.print("<li class='active'><a href='account.jsp'>Account Settings</a></li>");
                                 out.print("<li class='active'><a href='logout.jsp'>Logout</a></li></ul></li>");
                             } else {
                                 out.print("<li><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
@@ -71,6 +72,13 @@
                         <td><input type="text" name="lastName" 
                                    value="<%out.print(DatabaseUserUtils.getLastNameFromUsername(session.getAttribute("user").toString()));%>"/></td>
                     </tr>
+                    <p style="color: red;">
+                        <%
+                            if (request.getAttribute("message") != null) {
+                                out.print(request.getAttribute("message"));
+                            }
+                        %>
+                    </p>
                     <tr>
                         <td><input type="submit" value="Save Changes" class="button"/></td><td/>
                     </tr>
