@@ -242,22 +242,26 @@ public class UploadPostServlet extends HttpServlet {
                         } else if (fieldName.equals(TAGS_FIELD_NAME)) {
                             tags = value;
                             if (!tags.equals("")) {
-                                tagList = new LinkedList<String>(Arrays.asList(tags));
+                                tagList = new LinkedList<String>(Arrays.asList(tags.split(" ")));
                                 for (int i = 0; i < tagList.size(); i++) {
                                     String tag = tagList.get(i);
                                     if (tag.charAt(0) != '#') {
                                         if (message.equals("")) {
                                             message = "Tags must begin with #";
+                                            success = false;
                                         }
                                         tagList.remove(i);
                                     } else if (!StringUtils.isAlphanumeric(tag.substring(1))) {
+                                        log.info(tag.substring(1));
                                         if (message.equals("")) {
                                             message = "Tags must only contain numbers and letters";
+                                            success = false;
                                         }
                                         tagList.remove(i);
                                     } else if (tag.length() > 20) {
                                         if (message.equals("")) {
                                             message = "Tags must be 20 characters or less";
+                                            success = false;
                                         }
                                         tagList.remove(i);
                                     } else {

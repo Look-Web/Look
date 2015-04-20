@@ -7,11 +7,11 @@
 <%@page import="com.look.DatabaseUserUtils"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    if (session.getAttribute("user") != null) {
+    if (session.getAttribute("user") == null) {
         response.sendRedirect(".");
     } else {
-        if (session.getAttribute("account_deleted") != null) {
-            session.setAttribute("account_deleted", null);
+        if (session.getAttribute("account_created") != null) {
+            session.setAttribute("account_created", null);
         } else {
             response.sendRedirect(".");
         }
@@ -22,7 +22,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Look! | Account deleted</title>
+        <title>Look! | Joined!</title>
         <link rel="stylesheet" href="css/foundation.css" />
         <link rel="stylesheet" href="css/styles.css" />
         <script src="js/vendor/modernizr.js"></script>
@@ -65,8 +65,7 @@
             </nav>
         </div>
     
-    
-    <h3 align="center" style="margin-top: 15px">Your account has been deleted. We're sorry to see you go!</h3>
+    <h3 align="center" style="margin-top: 15px">Thanks for joining! Start by looking at the Recent Feed!</h3>
     
     <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
