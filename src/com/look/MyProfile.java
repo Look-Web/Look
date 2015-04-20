@@ -30,6 +30,10 @@ import org.ocpsoft.prettytime.PrettyTime;
 public class MyProfile extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession().getAttribute("user") == null) {
+            request.getSession().setAttribute("destination", "myProfile");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        }
         String username = request.getSession().getAttribute("user").toString();
         request.setAttribute("username", username);
         int user_id = DatabaseUserUtils.getUserIDFromUsername(username);

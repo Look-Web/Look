@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%  //if not logged in
     if(session.getAttribute("user") == null) { 
-        session.setAttribute("destination", "profile.jsp");
+        session.setAttribute("destination", "account.jsp");
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 %>
