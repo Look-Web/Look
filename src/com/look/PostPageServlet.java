@@ -31,23 +31,26 @@ public class PostPageServlet extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = null;
+        int post_id = Integer.parseInt(request.getParameter("id"));
+        request.setAttribute("postID", post_id);
+            
         try {
             conn = LookDatabaseUtils.getNewConnection();
-            String post_id = request.getParameter("id");
+            
             ResultSet r = conn.createStatement().executeQuery(
                 "SELECT * FROM posts "
                 + "WHERE post_id=" + post_id + ";");
             r.next();
             request.setAttribute("title", r.getString("title"));
             request.setAttribute("description", r.getString("description"));
-            
+            int user_id = r.getInt("users_user_ID");
             ResultSet userSet = conn.createStatement().executeQuery(
                 "SELECT username FROM users "
-                + "WHERE user_id=" + r.getInt("users_user_ID") + ";");
+                + "WHERE user_id=" + user_id + ";");
             userSet.next();
             
             request.setAttribute("username", userSet.getString(1));
-            
+            request.setAttribute("userID", user_id);
             ResultSet tagIDSet = conn.createStatement().executeQuery(
                     "SELECT * FROM tags_has_posts "
                     + "WHERE posts_post_id=" + post_id + ";");

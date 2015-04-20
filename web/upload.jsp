@@ -37,7 +37,7 @@
 
                 <section class="top-bar-section">
                     <ul class="right">
-                        <li><a href="index.jsp">Recent Feed</a></li>
+                        <li><a href=".">Recent Feed</a></li>
                         <li class="active"><a href="upload.jsp">Upload an Image</a></li>
                         <%
                             if (session.getAttribute("user") != null) {
