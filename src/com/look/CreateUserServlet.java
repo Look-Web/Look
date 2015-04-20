@@ -139,7 +139,8 @@ public class CreateUserServlet extends HttpServlet {
         Logger.getLogger(CreateUserServlet.class.getName()).info("Account created");
         request.getSession().setAttribute("user", username);
         try {
-            response.sendRedirect(".");
+            request.getSession().setAttribute("account_created", "yes");
+            response.sendRedirect("thanks-join.jsp");
         } catch (IOException ex) {
             Logger.getLogger(CreateUserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
