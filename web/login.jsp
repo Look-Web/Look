@@ -9,9 +9,10 @@
 <%@page import="com.look.DatabaseUserUtils"%>
 <%@page import="com.look.RecentFeed" %>
 <!DOCTYPE html>
-<% if(session.getAttribute("user") != null) { 
+<%  
+    if(session.getAttribute("user") != null) { 
         response.sendRedirect("index.jsp");
-}
+    }
 %>
 <html>
     <head>
