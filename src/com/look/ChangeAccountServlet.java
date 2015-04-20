@@ -11,10 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -23,16 +25,24 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/changeAccount")
 public class ChangeAccountServlet extends HttpServlet {
     
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String newFirstName = request.getParameter("firstName");
         String newLastName = request.getParameter("lastName");
+        
+        if (!StringUtils.isAlpha(newFirstName)) {
+            request.setAttribute("message", "First name cannot contain numbers or special characters");
+            request.getRequestDispatcher("/account.jsp").forward(request, response);
+        } else if (!StringUtils.isAlpha(newLastName)) {
+            request.setAttribute("message", "Last name cannot contain numbers or special characters");
+            request.getRequestDispatcher("/account.jsp").forward(request, response);
+        }
         
         String username = request.getSession().getAttribute("user").toString();
         String oldFirstName = DatabaseUserUtils.getFirstNameFromUsername(username);
         String oldLastName = DatabaseUserUtils.getLastNameFromUsername(username);
         
         if (newFirstName.equals(oldFirstName) || newLastName.equals(oldLastName)) {
-            response.sendRedirect("profile.jsp");
+            response.sendRedirect("account.jsp");
         }
         
         //change the name

@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +36,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import static org.apache.commons.lang3.StringUtils.split;
 
 /**
  *
@@ -42,6 +44,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 @WebServlet("/uploadServlet")
 public class UploadPostServlet extends HttpServlet {
+    Logger log = Logger.getLogger(UploadPostServlet.class.getName());
     private String IMAGE_DIRECTORY = null;
     private final String db = "look_db";
     private final String dbUser = "look_admin";
@@ -61,6 +64,8 @@ public class UploadPostServlet extends HttpServlet {
     
     private int post_id;
     
+    private String message = "";
+    
     private String imageExtension = null;
     
     private InputStream fileContent;
@@ -69,9 +74,8 @@ public class UploadPostServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
-        Logger log = Logger.getLogger(UploadPostServlet.class.getName());
-        
+            throws ServletException, IOException {    
+        message = "";
         URL imagesResourceURL = UploadPostServlet.class.getClassLoader().getResource("images/");
         
         IMAGE_DIRECTORY = getServletContext().getRealPath("/images/");
@@ -79,9 +83,12 @@ public class UploadPostServlet extends HttpServlet {
         user = request.getSession().getAttribute("user").toString();
         
         boolean success = handleRequest(request);
-        log.info("Request handled successfully: " + success);
         if (success == false) {
-            getServletContext().getRequestDispatcher("/uploadResult.jsp").forward(request, response);
+            request.setAttribute("title", title);
+            request.setAttribute("description", description);
+            request.setAttribute("tags", tags);
+            request.setAttribute("message", message);
+            getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
             return;
         }
         
@@ -126,11 +133,12 @@ public class UploadPostServlet extends HttpServlet {
                 request.setAttribute("message", "Failed to upload");
                 Statement removeStatement = conn.createStatement();
                 removeStatement.executeUpdate("DELETE FROM posts WHERE post_id=" + post_id + ";");
-                getServletContext().getRequestDispatcher("/uploadResult.jsp").forward(request, response);
+                getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
                 return;
             }
             
-            if (tagList.size() > 0) {
+            //if there are tags
+            if (tagList != null && tagList.size() > 0) {
                 //add tags to database
                 String addTagSQL = "INSERT IGNORE INTO tags (tag) " +
                     "VALUES (?); ";
@@ -165,11 +173,7 @@ public class UploadPostServlet extends HttpServlet {
                     ex.printStackTrace();
                 }
             }
-            //TODO Implement upload success message
-            // sets the message in request scope
-            request.setAttribute("message", "Success");
              
-            // forwards to the message page
             //TODO change this to go to the image post
             response.sendRedirect("post?id=" + post_id);
             //getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
@@ -200,56 +204,81 @@ public class UploadPostServlet extends HttpServlet {
 //-----------------------------------------------------------------------------------------------
     
     private boolean handleRequest(HttpServletRequest request) {
-        
         if (ServletFileUpload.isMultipartContent(request)) {
-                try {
-                    List<FileItem> multiparts = new ServletFileUpload(
-                            new DiskFileItemFactory()).parseRequest(request);
-                    
-                    for (FileItem item : multiparts) {
-                        if (!item.isFormField()) {                            
-                            // Process form file field (input type="file").
-                            String fieldName = item.getFieldName();
-                            String clientFileName = FilenameUtils.getName("TEMP_"+item.getName().replaceAll(" ", ""));
-                            imageExtension = FilenameUtils.getExtension(clientFileName);
-                            imageURL = clientFileName + "." + imageExtension;
-                            fileContent = item.getInputStream();
-                        } else {
-                            String fieldName = item.getFieldName();
-                            String value = item.getString();
-                            Logger.getLogger(UploadPostServlet.class.getName()).info(value);
-                            if (value.equals("") && !fieldName.equals(TAGS_FIELD_NAME)) {
-                                return false;
+            try {
+                List<FileItem> multiparts = new ServletFileUpload(
+                        new DiskFileItemFactory()).parseRequest(request);
+                
+                boolean success = true;
+                for (FileItem item : multiparts) {
+                    if (!item.isFormField()) {                            
+                        // Process form file field (input type="file").
+                        String fieldName = item.getFieldName();
+                        String filename = item.getName();
+                        if (filename.equals("")) {
+                            //only update message if there isn't one yet
+                            if (message.equals("")) {
+                                message = "Please choose an image";
                             }
-                            if (fieldName.equals(TITLE_FIELD_NAME)) {
-                                title = value;
-                            } else if (fieldName.equals(DESCRIPTION_FIELD_NAME)) {
-                                description = value;
-                            } else if (fieldName.equals(TAGS_FIELD_NAME)) {
-                                tagList = Arrays.asList(value.split(" "));
+                            success = false;
+                        }
+                        String clientFileName = FilenameUtils.getName("TEMP_"+item.getName().replaceAll(" ", ""));
+
+                        imageExtension = FilenameUtils.getExtension(clientFileName);
+                        imageURL = clientFileName + "." + imageExtension;
+                        fileContent = item.getInputStream();
+                    } else {
+                        String fieldName = item.getFieldName();
+                        String value = item.getString();
+                        //only title is required
+                        if (value.equals("") && (fieldName.equals("title"))) {
+                            message = "Please enter a title";
+                            success = false;
+                        }
+                        if (fieldName.equals(TITLE_FIELD_NAME)) {
+                            title = value;
+                        } else if (fieldName.equals(DESCRIPTION_FIELD_NAME)) {
+                            description = value;
+                        } else if (fieldName.equals(TAGS_FIELD_NAME)) {
+                            tags = value;
+                            if (!tags.equals("")) {
+                                tagList = new LinkedList<String>(Arrays.asList(tags));
                                 for (int i = 0; i < tagList.size(); i++) {
                                     String tag = tagList.get(i);
                                     if (tag.charAt(0) != '#') {
+                                        if (message.equals("")) {
+                                            message = "Tags must begin with #";
+                                        }
                                         tagList.remove(i);
                                     } else if (!StringUtils.isAlphanumeric(tag.substring(1))) {
+                                        if (message.equals("")) {
+                                            message = "Tags must only contain numbers and letters";
+                                        }
                                         tagList.remove(i);
                                     } else if (tag.length() > 20) {
+                                        if (message.equals("")) {
+                                            message = "Tags must be 20 characters or less";
+                                        }
                                         tagList.remove(i);
                                     } else {
                                         //tag is valid, remove the '#' for storage
                                         tagList.set(i, tag.substring(1));
-                                    }
+                                    }   
                                 }
-                                //now have list of alphanumeric tags of 20 chars or less
                             }
+                            //now have list of alphanumeric tags of 20 chars or less
                         }
                     }
-                } catch (FileUploadException ex) {
-                    Logger.getLogger(UploadPostServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (!success) {
                     return false;
-                } catch (Exception ex) {
-                    Logger.getLogger(UploadPostServlet.class.getName()).log(Level.SEVERE, null, ex);
-                    return false;
+                }
+            } catch (FileUploadException ex) {
+                Logger.getLogger(UploadPostServlet.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            } catch (Exception ex) {
+                Logger.getLogger(UploadPostServlet.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
             }
         } else {
                 request.setAttribute("message", "File upload request not found");

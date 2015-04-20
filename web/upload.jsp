@@ -44,6 +44,7 @@
                                 out.print("<li class='has-dropdown'><a href='#'>Hello, ");
                                 out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
                                 out.print("!</a><ul class='dropdown'><li><a href='profile.jsp'>Profile</a></li>");
+                                out.print("<li><a href='account.jsp'>Account Settings</a></li>");
                                 out.print("<li><a href='logout.jsp'>Logout</a></li></ul></li>");
                             } else {
                                 out.print("<li><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
@@ -64,26 +65,35 @@
                     <div class="row">
                         <label>
                             Title
-                        <input type="text" placeholder="Image Title" name="title" > 
+                            <input type="text" placeholder="Image Title" name="title" value="${requestScope.title}"> 
                         </label>
                     </div>
                     <div class="row">
                         <label>
                         Description
-                        <textarea name="description" placeholder="enter a brief description of the image."></textarea>
+                        <textarea name="description" placeholder="enter a brief description of the image.">${requestScope.description}</textarea>
                         </label>
                     </div>
                     <div class="row">
                         <label>
                         Tags
-                        <input type="text" placeholder="enter #hashtags separated by spaces" name="tags" />
+                        <input type="text" placeholder="enter #hashtags separated by spaces" name="tags"  value="${requestScope.tags}"/>
                         </label>
                     </div>
                     <div class="row">
                         <label>
                         Image
-                        <input type="file" name="image" />
+                        <input type="file" name="image"/>
                         </label>
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        <p style="color: red;">
+                            <%
+                                if (request.getAttribute("message") != null) {
+                                    out.print(request.getAttribute("message"));
+                                }
+                            %>
+                        </p>
                     </div>
                     <div class="row" style="text-align: center;">
                         <input type="submit" value="Upload" class="button"> 

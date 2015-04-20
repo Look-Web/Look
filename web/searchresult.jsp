@@ -13,6 +13,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Look! | Search ${requestScope.tag}</title>
+        <link rel="stylesheet" href="css/foundation.css" />
+        <link rel="stylesheet" href="css/styles.css" />
+        <script src="js/vendor/modernizr.js"></script>
     </head>
     <body>
         <h3>
@@ -28,8 +31,16 @@
                 }
             %>
         </h3>
+        <div class="row">
         <%
             out.print(SearchResultDisplay.displaySearch(request.getAttribute("postIDs").toString()));
         %>
+        </div>
+        
+        <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
     </body>
 </html>
