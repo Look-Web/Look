@@ -8,11 +8,17 @@
 <%@page import="java.util.List"%>
 <%@page import="com.look.SearchResultDisplay"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    if (request.getAttribute("searchTag") == null) {
+        response.sendError(HttpServletResponse.SC_NOT_FOUND);
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Look! | Search ${requestScope.tag}</title>
+        <title>Look! | Search ${requestScope.searchTag}</title>
         <link rel="stylesheet" href="css/foundation.css" />
         <link rel="stylesheet" href="css/styles.css" />
         <script src="js/vendor/modernizr.js"></script>
@@ -21,7 +27,7 @@
         <h3>
             <%
                 //find num of results
-                if (!request.getAttribute("postIDs").equals("")) {
+                if (request.getAttribute("postIDs") != null && !request.getAttribute("postIDs").equals("")) {
                     List<String> results = Arrays.asList(request.getAttribute("postIDs").toString().split(" "));
                     if (results.size() > 0) {
                         out.print("Found " + results.size() + " results for " + request.getAttribute("searchTag"));
@@ -33,7 +39,9 @@
         </h3>
         <div class="row">
         <%
-            out.print(SearchResultDisplay.displaySearch(request.getAttribute("postIDs").toString()));
+            if (request.getAttribute("postIDs") != null) {
+                out.print(SearchResultDisplay.displaySearch(request.getAttribute("postIDs").toString()));
+            }
         %>
         </div>
         
