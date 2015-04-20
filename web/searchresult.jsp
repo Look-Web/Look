@@ -4,9 +4,9 @@
     Author     : kevinholland
 --%>
 
+<%@page import="com.look.PostResultDisplay"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
-<%@page import="com.look.SearchResultDisplay"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
@@ -40,7 +40,7 @@
         <div class="row">
         <%
             if (request.getAttribute("postIDs") != null) {
-                out.print(SearchResultDisplay.displaySearch(request.getAttribute("postIDs").toString()));
+                out.print(PostResultDisplay.displayPostsFromIDs(request.getAttribute("postIDs").toString()));
             }
         %>
         </div>

@@ -21,11 +21,11 @@ import org.ocpsoft.prettytime.PrettyTime;
  *
  * @author kevinholland
  */
-public class SearchResultDisplay {
+public class PostResultDisplay {
 
     public static Connection conn;
 
-    public static String displaySearch(String postIDs) {
+    public static String displayPostsFromIDs(String postIDs) {
         if (postIDs.equals("")) {
             //no results were found
             return "";
@@ -48,7 +48,7 @@ public class SearchResultDisplay {
             }
 
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(SearchResultDisplay.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PostResultDisplay.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return output;
