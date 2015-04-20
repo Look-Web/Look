@@ -35,13 +35,21 @@
 
                 <section class="top-bar-section">
                     <ul class="right">
+                        <li class="has-form">
+                            <form method='GET' action='search'>
+                            <div class="row">
+
+                                <input class="search-box" type='text' name='tag' placeholder='Search by tag here'>
+                            </div>
+                            </form>
+                        </li>
                         <li><a href=".">Recent Feed</a></li>
                         <li><a href="upload.jsp">Upload an Image</a></li>
                         <%
                             if (session.getAttribute("user") != null) {
                                 out.print("<li class='has-dropdown active'><a href='#'>Hello, ");
                                 out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
-                                out.print("!</a><ul class='dropdown active'><li class='active'><a href='profile.jsp'>Profile</a></li>");
+                                out.print("!</a><ul class='dropdown active'><li class='active'><a href='myProfile'>Profile</a></li>");
                                 out.print("<li class='active'><a href='account.jsp'>Account Settings</a></li>");
                                 out.print("<li class='active'><a href='logout.jsp'>Logout</a></li></ul></li>");
                             } else {
@@ -52,41 +60,42 @@
                 </section>
             </nav>
         </div>
-    
-        <div class="row">
-            <h2>Account</h2>
-            <h4>Settings for your Look! account</h4>
-            <form method="POST" action="changeAccount">
-                <table>
-                    <tr>
-                        <td>Username</td>
-                        <td>${sessionScope.user}</td>
-                    </tr>
-                    <tr>
-                        <td>First Name</td>
-                        <td><input type="text" name="firstName" 
-                                   value="<%out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));%>"/></td>
-                    </tr>
-                    <tr>
-                        <td>Last Name</td>
-                        <td><input type="text" name="lastName" 
-                                   value="<%out.print(DatabaseUserUtils.getLastNameFromUsername(session.getAttribute("user").toString()));%>"/></td>
-                    </tr>
-                    <p style="color: red;">
-                        <%
-                            if (request.getAttribute("message") != null) {
-                                out.print(request.getAttribute("message"));
-                            }
-                        %>
-                    </p>
-                    <tr>
-                        <td><input type="submit" value="Save Changes" class="button"/></td><td/>
-                    </tr>
-                </table>
-            </form>
-            <br/>
-            <a href="deleteAccount" style="color: red;" >Delete account</a>
-            <!-- TODO MODAL ARE YOU SURE??? VERY DANGEROUS WITHOUT IT-->
+        <div align="center">
+            <div class="row">
+                <h2>Account</h2>
+                <h4>Settings for your Look! account</h4>
+                <form method="POST" action="changeAccount">
+                    <table>
+                        <tr>
+                            <td>Username</td>
+                            <td>${sessionScope.user}</td>
+                        </tr>
+                        <tr>
+                            <td>First Name</td>
+                            <td><input type="text" name="firstName" 
+                                       value="<%out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));%>"/></td>
+                        </tr>
+                        <tr>
+                            <td>Last Name</td>
+                            <td><input type="text" name="lastName" 
+                                       value="<%out.print(DatabaseUserUtils.getLastNameFromUsername(session.getAttribute("user").toString()));%>"/></td>
+                        </tr>
+                        <p style="color: red;">
+                            <%
+                                if (request.getAttribute("message") != null) {
+                                    out.print(request.getAttribute("message"));
+                                }
+                            %>
+                        </p>
+                        <tr>
+                            <td><input type="submit" value="Save Changes" class="button"/></td><td/>
+                        </tr>
+                    </table>
+                </form>
+                <br/>
+                <a href="deleteAccount" style="color: red;" >Delete account</a>
+                <!-- TODO MODAL ARE YOU SURE??? VERY DANGEROUS WITHOUT IT-->
+            </div>
         </div>
         
     <script src="js/vendor/jquery.js"></script>
