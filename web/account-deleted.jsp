@@ -23,6 +23,6 @@
         <title>Look! | Account Deleted</title>
     </head>
     <body>
-        <h3>Your account has been deleted, we're sorry to see you go!</h3>
+        <h3>Your account has been deleted. We're sorry to see you go!</h3>
     </body>
 </html>
