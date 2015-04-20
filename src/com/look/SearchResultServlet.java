@@ -44,7 +44,8 @@ public class SearchResultServlet extends HttpServlet {
             if (r.next()) {
                 int tag_id = r.getInt(1);
                 String postIDSQL ="SELECT posts_post_id FROM tags_has_posts "
-                        + "WHERE tags_tag_id=" + tag_id + ";";
+                        + "WHERE tags_tag_id=" + tag_id + " "
+                        + "ORDER BY posts_post_id DESC;";
                 ResultSet postIDSet = conn.createStatement().executeQuery(postIDSQL);
                 while (postIDSet.next()) {
                     int postID = postIDSet.getInt(1);

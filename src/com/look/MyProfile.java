@@ -44,7 +44,8 @@ public class MyProfile extends HttpServlet {
             conn = LookDatabaseUtils.getNewConnection();
             ResultSet postsSet = conn.createStatement().executeQuery(
                     "SELECT post_id FROM posts "
-                    + "WHERE users_user_id=" + user_id + ";");
+                    + "WHERE users_user_id=" + user_id + " "
+                    + "ORDER BY time_posted DESC;");
             while (postsSet.next()) {
                 postIDsString += postsSet.getInt(1) + " ";
                 numOfPosts++;
