@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <%  
     if(session.getAttribute("user") != null) { 
-        response.sendRedirect("index.jsp");
+        response.sendRedirect(".");
     }
 %>
 <html>
