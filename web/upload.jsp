@@ -71,7 +71,7 @@
                     <div class="row">
                         <label>
                         Description
-                        <textarea name="description" placeholder="enter a brief description of the image."  value="${requestScope.description}"></textarea>
+                        <textarea name="description" placeholder="enter a brief description of the image.">${requestScope.description}</textarea>
                         </label>
                     </div>
                     <div class="row">
@@ -83,7 +83,7 @@
                     <div class="row">
                         <label>
                         Image
-                        <input type="file" name="image" value=""/>
+                        <input type="file" name="image"/>
                         </label>
                     </div>
                     <div class="row" style="text-align: center;">
