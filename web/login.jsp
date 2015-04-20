@@ -9,8 +9,8 @@
 <%@page import="com.look.DatabaseUserUtils"%>
 <%@page import="com.look.RecentFeed" %>
 <!DOCTYPE html>
-<%  
-    if(session.getAttribute("user") != null) { 
+<%
+    if (session.getAttribute("user") != null) {
         response.sendRedirect(".");
     }
 %>
@@ -24,7 +24,7 @@
         <script src="js/vendor/modernizr.js"></script>
     </head>
     <body>
-        
+
         <div class="contain-to-grid">
             <nav class="top-bar" data-topbar data-options="is_hover: false" role="navigation">
                 <ul class="title-area">
@@ -36,24 +36,32 @@
 
                 <section class="top-bar-section">
                     <ul class="right">
+                        <li class="has-form">
+                            <form method='GET' action='search'>
+                                <div class="row">
+
+                                    <input class="search-box" type='text' name='tag' placeholder='Search by tag here'>
+                                </div>
+                            </form>
+                        </li>
                         <li><a href=".">Recent Feed</a></li>
                         <li><a href="upload.jsp">Upload an Image</a></li>
-                        <%
-                            if (session.getAttribute("user") != null) {
-                                out.print("<li class='has-dropdown'><a href='#'>Hello, ");
-                                out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
-                                out.print("!</a><ul class='dropdown'><li><a href='myProfile'>Profile</a></li>");
-                                out.print("<li><a href='account.jsp'>Account Settings</a></li>");
-                                out.print("<li><a href='logout.jsp'>Logout</a></li></ul></li>");
-                            } else {
-                                out.print("<li class='active'><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
-                            }
-                        %>
+                            <%
+                                if (session.getAttribute("user") != null) {
+                                    out.print("<li class='has-dropdown'><a href='#'>Hello, ");
+                                    out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
+                                    out.print("!</a><ul class='dropdown'><li><a href='myProfile'>Profile</a></li>");
+                                    out.print("<li><a href='account.jsp'>Account Settings</a></li>");
+                                    out.print("<li><a href='logout.jsp'>Logout</a></li></ul></li>");
+                                } else {
+                                    out.print("<li class='active'><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
+                                }
+                            %>
                     </ul>
                 </section>
             </nav>
         </div>
-        
+
         <form action="authorizeLogin" method="post">
             <div class="row">
                 <div class="panel large-4 large-offset-4 medium-6 medium-offset-3 small-12 columns login-box">
@@ -75,8 +83,8 @@
                 </div>
             </div>
         </form>
-    
-    <script src="js/vendor/jquery.js"></script>
+
+        <script src="js/vendor/jquery.js"></script>
         <script src="js/foundation.min.js"></script>
         <script>
             $(document).foundation();
