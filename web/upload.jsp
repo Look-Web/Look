@@ -13,7 +13,7 @@
     if(session.getAttribute("user") == null) { 
         session.setAttribute("destination", "upload.jsp");
         request.getRequestDispatcher("login.jsp").forward(request, response);
-}
+    }   
 %>
 <html>
     <head>
@@ -83,7 +83,7 @@
                     <div class="row">
                         <label>
                         Image
-                        <input type="file" name="image"/>
+                        <input type="file" name="image" accept="image/*"/>
                         </label>
                     </div>
                     <div class="row" style="text-align: center;">
