@@ -59,6 +59,8 @@ public class UploadPostServlet extends HttpServlet {
     private List<String> tagList;
     private String imageURL = null;
     
+    private int post_id;
+    
     private String imageExtension = null;
     
     private InputStream fileContent;
@@ -67,7 +69,7 @@ public class UploadPostServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {   
+            throws ServletException, IOException {
         Logger log = Logger.getLogger(UploadPostServlet.class.getName());
         
         URL imagesResourceURL = UploadPostServlet.class.getClassLoader().getResource("images/");
@@ -111,7 +113,7 @@ public class UploadPostServlet extends HttpServlet {
             Statement postIDStatement = conn.createStatement();
             ResultSet postIDRS = postIDStatement.executeQuery("SELECT post_id FROM posts WHERE image_url=\"" + imageURL + "\";");
             postIDRS.next();
-            int post_id = postIDRS.getInt(1);
+            post_id = postIDRS.getInt(1);
             imageURL = FilenameUtils.getName(post_id + "." + imageExtension);
             String imagePermaSQL = "UPDATE posts "
                     + "SET image_url= ? "
@@ -169,7 +171,7 @@ public class UploadPostServlet extends HttpServlet {
              
             // forwards to the message page
             //TODO change this to go to the image post
-            response.sendRedirect(".");
+            response.sendRedirect("post?id=" + post_id);
             //getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
