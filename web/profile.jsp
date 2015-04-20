@@ -35,14 +35,14 @@
 
                 <section class="top-bar-section">
                     <ul class="right">
-                        <li><a href="#">Recent Feed</a></li>
+                        <li><a href=".">Recent Feed</a></li>
                         <li><a href="upload.jsp">Upload an Image</a></li>
                         <%
                             if (session.getAttribute("user") != null) {
-                                out.print("<li class='has-dropdown'><a href='#'>Hello, ");
+                                out.print("<li class='has-dropdown active'><a href='#'>Hello, ");
                                 out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
-                                out.print("!</a><ul class='dropdown'><li><a href='profile.jsp'>Profile</a></li>");
-                                out.print("<li><a href='logout.jsp'>Logout</a></li></ul></li>");
+                                out.print("!</a><ul class='dropdown'><li class='active'><a href='profile.jsp'>Profile</a></li>");
+                                out.print("<li class='active'><a href='logout.jsp'>Logout</a></li></ul></li>");
                             } else {
                                 out.print("<li><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
                             }
@@ -78,7 +78,7 @@
             </form>
             <br/>
             <a href="deleteAccount" style="color: red;" >Delete account</a>
-            <!-- TODO MODAL ARE YOU SURE???-->
+            <!-- TODO MODAL ARE YOU SURE??? VERY DANGEROUS WITHOUT IT-->
         </div>
         
     <script src="js/vendor/jquery.js"></script>
