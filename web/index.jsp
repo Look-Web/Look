@@ -84,7 +84,6 @@
         <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
 
-
     <div class="contain-to-grid">
         <nav class="top-bar" data-topbar data-options="is_hover: false" role="navigation">
             <ul class="title-area">
@@ -106,6 +105,7 @@
                     </li>
                     <li class="active"><a href="#">Recent Feed</a></li>
                     <li><a href="upload.jsp">Upload an Image</a></li>
+        
                         <%
                             if (session.getAttribute("user") != null) {
                                 out.print("<li class='has-dropdown'><a href='#'>Hello, ");
