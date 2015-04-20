@@ -69,8 +69,6 @@
     <h4>${requestScope.time} by ${requestScope.username}</h4>
     <h4>${requestScope.description}</h4>
     <h4>${requestScope.tags}</h4>
-    
-    
     </div>
 
     <script src="js/vendor/jquery.js"></script>

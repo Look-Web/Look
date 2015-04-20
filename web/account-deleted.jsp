@@ -66,7 +66,7 @@
         </div>
     
     
-    <h3 align="center">Your account has been deleted. We're sorry to see you go!</h3>
+    <h3 align="center" style="margin-top: 15px">Your account has been deleted. We're sorry to see you go!</h3>
     
     <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
