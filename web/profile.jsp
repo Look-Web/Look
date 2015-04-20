@@ -9,8 +9,9 @@
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    if (session.getAttribute("user") == null) {
-        response.sendRedirect(".");
+    if(session.getAttribute("user") == null) { 
+        session.setAttribute("destination", "myProfile");
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
     if (request.getAttribute("username") == null) {
         response.sendError(HttpServletResponse.SC_NOT_FOUND);
