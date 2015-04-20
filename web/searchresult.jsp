@@ -75,7 +75,10 @@
                         out.print("Found 1 result for " + request.getAttribute("searchTag"));
                     }
                 } else {
-                    out.print("No results found for " + request.getAttribute("searchTag"));
+                    out.print("<div align='center'>");
+                    out.print("No results found for " + request.getAttribute("searchTag") + ". ");
+                    out.print("Look for something different!");
+                    out.print("</div>");
                 }
             %>
         </h3>

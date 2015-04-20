@@ -12,7 +12,7 @@
 <%
     if (request.getParameter("username") != null) {
         request.setAttribute("username", request.getParameter("username"));
-    } 
+    }
     if (request.getParameter("firstName") != null) {
         request.setAttribute("firstName", request.getParameter("firstName"));
     }
@@ -42,24 +42,32 @@
 
                 <section class="top-bar-section">
                     <ul class="right">
+                        <li class="has-form">
+                            <form method='GET' action='search'>
+                                <div class="row">
+
+                                    <input class="search-box" type='text' name='tag' placeholder='Search by tag here'>
+                                </div>
+                            </form>
+                        </li>
                         <li><a href=".">Recent Feed</a></li>
                         <li><a href="upload.jsp">Upload an Image</a></li>
-                        <%
-                            if (session.getAttribute("user") != null) {
-                                out.print("<li class='has-dropdown'><a href='#'>Hello, ");
-                                out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
-                                out.print("!</a><ul class='dropdown'><li><a href='myProfile'>Profile</a></li>");
-                                out.print("<li><a href='account.jsp'>Account Settings</a></li>");
-                                out.print("<li><a href='logout.jsp'>Logout</a></li></ul></li>");
-                            } else {
-                                out.print("<li class='active'><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
-                            }
-                        %>
+                            <%
+                                if (session.getAttribute("user") != null) {
+                                    out.print("<li class='has-dropdown'><a href='#'>Hello, ");
+                                    out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
+                                    out.print("!</a><ul class='dropdown'><li><a href='myProfile'>Profile</a></li>");
+                                    out.print("<li><a href='account.jsp'>Account Settings</a></li>");
+                                    out.print("<li><a href='logout.jsp'>Logout</a></li></ul></li>");
+                                } else {
+                                    out.print("<li class='active'><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
+                                }
+                            %>
                     </ul>
                 </section>
             </nav>
         </div>
-        
+
         <form action="createUser" method="post">
             <div class="row">
                 <div class="panel large-6 large-offset-3 medium-8 medium-offset-2 small-12 columns login-box">
@@ -73,12 +81,12 @@
                     </div>
                     <div class="row">
                         <label>
-                        <input type="password" name="password" placeholder="Password">
+                            <input type="password" name="password" placeholder="Password">
                         </label>
                     </div>
                     <div class="row">
                         <label>
-                        <input type="password" name="repeatPassword" placeholder="Repeat Password">
+                            <input type="password" name="repeatPassword" placeholder="Repeat Password">
                         </label>
                     </div>
                     <div class="row">
@@ -103,12 +111,10 @@
                     <div class="row" style="text-align: center;">
                         <input type="submit" value="Register" class="button"> 
                     </div>
-                    
-                    
                 </div>
             </div>
         </form>
-        
+
         <script src="js/vendor/jquery.js"></script>
         <script src="js/foundation.min.js"></script>
         <script>
