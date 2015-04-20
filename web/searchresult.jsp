@@ -31,9 +31,11 @@
                 }
             %>
         </h3>
+        <div class="row">
         <%
             out.print(SearchResultDisplay.displaySearch(request.getAttribute("postIDs").toString()));
         %>
+        </div>
         
         <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
