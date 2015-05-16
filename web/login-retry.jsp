@@ -8,6 +8,10 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="com.look.DatabaseUserUtils"%>
 <%@page import="com.look.RecentFeed" %>
+<%@page import="com.look.MenuBar"%>
+<%@page import="com.look.MenuBar"%>
+<%@include file="modal-dialogs.jsp"%>
+
 <!DOCTYPE html>
 <%
     if (session.getAttribute("user") != null) {
@@ -22,42 +26,9 @@
         <link rel="stylesheet" href="css/styles.css" />
     </head>
     <body>
-        <div class="contain-to-grid">
-            <nav class="top-bar" data-topbar data-options="is_hover: false" role="navigation">
-                <ul class="title-area">
-                    <li class="name">
-                        <h1><a href=".">Look!</a></h1>
-                    </li>
-                    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-                </ul>
+        
+        <%out.println(MenuBar.generateMenuBar(session, "User"));%>
 
-                <section class="top-bar-section">
-                    <ul class="right">
-                        <li class="has-form">
-                            <form method='GET' action='search'>
-                                <div class="row">
-
-                                    <input class="search-box" type='text' name='tag' placeholder='Search by tag here'>
-                                </div>
-                            </form>
-                        </li>
-                        <li><a href=".">Recent Feed</a></li>
-                        <li><a href="upload.jsp">Upload an Image</a></li>
-                            <%
-                                if (session.getAttribute("user") != null) {
-                                    out.print("<li class='has-dropdown'><a href='#'>Hello, ");
-                                    out.print(DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString()));
-                                    out.print("!</a><ul class='dropdown'><li><a href='myProfile'>Profile</a></li>");
-                                    out.print("<li><a href='account.jsp'>Account Settings</a></li>");
-                                    out.print("<li><a href='logout.jsp'>Logout</a></li></ul></li>");
-                                } else {
-                                    out.print("<li class='active'><a href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>");
-                                }
-                            %>
-                    </ul>
-                </section>
-            </nav>
-        </div>
 
         <form action="authorizeLogin" method="post">
             <div class="row">

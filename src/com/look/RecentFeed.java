@@ -15,58 +15,53 @@ import org.ocpsoft.prettytime.PrettyTime;
  * @author kevinholland
  */
 public class RecentFeed {
-    java.sql.Connection con;
-    private static final String db = "look_db";
-    private static final String db_user = "look_admin";
-    private static final String db_password = "lookpass";
-    
-    public RecentFeed() {
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost/"+db, db_user, db_password);
-        } catch (Exception e) {
-            out.println(e.getMessage());
-        }
-    }
-    
-    public String outputRecentFeed() throws SQLException {
-        Statement s;
-        try {
-            s = con.createStatement();
-        } catch (NullPointerException e) {
-            return e.getMessage();
-        }
-        ResultSet r;
-        s.setFetchSize(64);
-        String output = "";
+    public static String outputRecentFeed(int fetchSize) throws SQLException, ClassNotFoundException {
+        //establish db connection
+        Connection con = LookDatabaseUtils.getNewConnection();
+        //output HTML
+        String outputHtml = "";
+        //PrettyTime instance for time formatting
         PrettyTime p = new PrettyTime();
         try {
-            r = s.executeQuery("SELECT * FROM posts ORDER BY time_posted DESC");
-            //out.println("<pre>");
+            //create statement for query
+            Statement s = con.createStatement();
+            //limit number of query results
+            s.setFetchSize(fetchSize);
+            //query all posts ordered by descending time (most recent first)
+            ResultSet r = s.executeQuery("SELECT * FROM posts ORDER BY time_posted DESC");
+            
+            //iterate through result set
             while (r.next()) {
+                //GET USERNAME FOR IMAGE POST
                 Statement sUser = con.createStatement();
                 int userID = r.getInt(4);
                 String query = "SELECT username FROM users WHERE user_id=" + userID;
                 ResultSet userResult = sUser.executeQuery(query);
                 userResult.next();
                 String user = userResult.getString("username");
+                
+                //get timestamp and instantiate date object from it
                 Timestamp stamp = r.getTimestamp(6);
                 Date date = new Date(stamp.getTime());
+                
+                //get post ID from post query result set
                 int post_id = r.getInt("post_id");
-                output += String.format("<a href='%s'>", "./post?id=" + post_id); // TODO: Replace this with the image link
-                output += "<div class='large-3 medium-4 small-12 columns'>";
-                output += "<div class='panel feed-image'>";
-                output += String.format("<div class='feed-image-src' style='background-image: url(images/%s)'></div>", r.getString(5));
-                output += String.format("<span class='feed-image-title'>%s</span><br />", r.getString(2));
-                output += String.format("<span class='feed-image-attribution'>posted by %s</span><br />", user);
-                output += String.format("<span class='feed-image-timestamp'>%s</span>", p.format(date));
-                output += "</div>";
-                output += "</div>";
-                output += "</a>";
+                
+                //construct HTML for post preview on the recent feed
+                outputHtml += String.format("<a href='%s'>", "./post?id=" + post_id); // TODO: Replace this with the image link
+                outputHtml += "<div class='large-3 medium-4 small-12 columns'>";
+                outputHtml += "<div class='panel feed-image'>";
+                outputHtml += String.format("<div class='feed-image-src' style='background-image: url(images/%s)'></div>", r.getString(5));
+                outputHtml += String.format("<span class='feed-image-title'>%s</span><br />", r.getString(2));
+                outputHtml += String.format("<span class='feed-image-attribution'>posted by %s</span><br />", user);
+                outputHtml += String.format("<span class='feed-image-timestamp'>%s</span>", p.format(date));
+                outputHtml += "</div>";
+                outputHtml += "</div>";
+                outputHtml += "</a>";
             }
         } catch (SQLException e) {
             out.println(e);
         }
-        return output;
+        return outputHtml;
     }
 }
