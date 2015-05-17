@@ -1,8 +1,7 @@
 # Look
 An image sharing website and social network
 
-Contributors:
-
+#### Contributors:  
 Kevin Holland   
 Matt Fonner  
 Mark Hensler   
