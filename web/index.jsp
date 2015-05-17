@@ -21,18 +21,19 @@
     </head>
 
     <%out.println(MenuBar.generateMenuBar(session, "Recent Feed"));%>
+    <div class="row" id="recentfeed-content">
+        <div class="row" style="margin-top: 15px">
+            <div class="small-12 columns"><h2 style="text-align: center">Recent Feed</h2></div>
+        </div>                    
 
-    <div class="row" style="margin-top: 15px">
-        <div class="small-12 columns"><h2 style="text-align: center">Recent Feed</h2></div>
-    </div>                    
-
-    <div class="row">
-        <%  try {
-                out.println(RecentFeed.outputRecentFeed(64));
-            } catch (Exception e) {
-                out.println("<h4>We're sorry, there was an error. Please try again or refresh the page</h4>");
-            }
-        %>
+        <div class="row">
+            <%  try {
+                    out.println(RecentFeed.outputRecentFeed(64));
+                } catch (Exception e) {
+                    out.println("<h4>We're sorry, there was an error. Please try again or refresh the page</h4>");
+                }
+            %>
+        </div>
     </div>
 
     <script src="js/vendor/jquery.js"></script>
