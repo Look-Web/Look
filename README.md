@@ -1,7 +1,5 @@
 # Look
-Look image sharing website
-
-A simple java webapp using JDBC for CS 175
+An image sharing website and social network
 
 Contributors:
 
