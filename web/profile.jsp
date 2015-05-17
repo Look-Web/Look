@@ -4,6 +4,7 @@
     Author     : kevinholland
 --%>
 
+<%@page import="com.look.MenuBar.Items"%>
 <%@page import="com.look.DatabaseUserUtils"%>
 <%@page import="com.look.PostResultDisplay"%>
 <%@page import="java.util.Arrays"%>
@@ -32,7 +33,7 @@
     </head>
     <body>
         
-        <%out.println(MenuBar.generateMenuBar(session, "User:Profile"));%>
+        <%out.println(MenuBar.generateMenuBar(session, Items.USER_PROFILE));%>
 
         <h3 class='row' style="margin-top: 15px">
             <%

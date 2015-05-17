@@ -4,6 +4,7 @@
     Author     : kevinholland
 --%>
 
+<%@page import="com.look.MenuBar.Items"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="com.look.DatabaseUserUtils"%>
@@ -29,7 +30,7 @@
     </head>
     <body>
         
-        <%out.println(MenuBar.generateMenuBar(session, "Upload"));%>
+        <%out.println(MenuBar.generateMenuBar(session, Items.UPLOAD));%>
         
         <form action="uploadServlet" enctype="multipart/form-data" method="post">
             <div class="row">

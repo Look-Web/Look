@@ -4,6 +4,7 @@
     Author     : kevinholland
 --%>
 
+<%@page import="com.look.MenuBar.Items"%>
 <%@page import="com.look.MenuBar"%>
 <%@page import="com.look.DatabaseUserUtils"%>
 <%@page import="com.look.PostResultDisplay"%>
@@ -30,7 +31,7 @@
         <script src="js/vendor/modernizr.js"></script>
     </head>
     
-    <%out.println(MenuBar.generateMenuBar(session, "Recent Feed"));%>
+    <%out.println(MenuBar.generateMenuBar(session, Items.RECENT_FEED));%>
 
     <div class="row" style="margin-top: 15px">
         <h3>

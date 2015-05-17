@@ -3,6 +3,7 @@
     Created on : Mar 27, 2015, 7:51:58 PM
     Author     : tmcdeane
 --%>
+<%@page import="com.look.MenuBar.Items"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="com.look.DatabaseUserUtils"%>
 <%@page import="com.look.RecentFeed" %>
@@ -20,7 +21,7 @@
         <script src="js/vendor/modernizr.js"></script>
     </head>
 
-    <%out.println(MenuBar.generateMenuBar(session, "Recent Feed"));%>
+    <%out.println(MenuBar.generateMenuBar(session, Items.RECENT_FEED));%>
     <div class="row" id="recentfeed-content">
         <div class="row" style="margin-top: 15px">
             <div class="small-12 columns"><h2 style="text-align: center">Recent Feed</h2></div>
