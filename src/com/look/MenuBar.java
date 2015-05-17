@@ -58,15 +58,19 @@ public class MenuBar {
         
         if (activeItem.equals("Recent Feed")) {
             recentFeedItemHtml = String.format(recentFeedItemHtml, "active");
+            uploadItemHtml = String.format(uploadItemHtml, "inactive");
+            userItemHtml = String.format(userItemHtml, "inactive", "inactive", "inactive");
         } else if (activeItem.equals("Upload")) {
+            recentFeedItemHtml = String.format(recentFeedItemHtml, "inactive");
             uploadItemHtml = String.format(uploadItemHtml, "active");
+            userItemHtml = String.format(userItemHtml, "inactive", "inactive", "inactive");
         } else if (activeItem.contains("User")) {
             userItemHtml = String.format(userItemHtml, "active", "%s", "%s");
             if (activeItem.equals("User:Profile")) {
-                userItemHtml = String.format(userItemHtml, "active", "");
+                userItemHtml = String.format(userItemHtml, "active", "inactive");
             }
             else if (activeItem.equals("User:Account")) {
-                userItemHtml = String.format(userItemHtml, "", "active");
+                userItemHtml = String.format(userItemHtml, "inactive", "active");
             }
         }
         
