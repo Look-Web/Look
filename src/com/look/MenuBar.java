@@ -1,10 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.look;
 
+import com.sun.istack.logging.Logger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
 import javax.servlet.http.HttpSession;
 
 /*
@@ -24,11 +24,20 @@ import javax.servlet.http.HttpSession;
  */
 
 /**
- *
- * @author kevinholland
+ * This class contains a static method for generating HTML for the MenuBar
+ * 
+ * @author  Kevin Holland (GitHub: kholland950)
+ * @date    04/20/15
+ * @updated 05/17/15
  */
 public class MenuBar {
-    public static String generateMenuBar(HttpSession session, String activeItem) {
+    /**
+     * Generates HTML for MenuBar from given session and activeItem
+     * @param session HttpSession corresponding with user's session
+     * @param activeItem String of active page or currently selected menu item
+     * @return Sting HTML of menu bar
+     */
+    public static String generateMenuBar(HttpSession session, Items activeItem) {
         String leftSectionHeaderHtml = 
                 "<div class='contain-to-grid'>" +
                 "   <nav class='top-bar' data-topbar data-options='is_hover: false' role='navigation'>";

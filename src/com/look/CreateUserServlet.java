@@ -32,19 +32,29 @@ import org.apache.commons.lang3.StringUtils;
  */
 
 /**
- *
- * @author kevinholland
+ * CreateUserServlet handles the creating of users
+ * 
+ * @author  Kevin Holland (GitHub: kholland950)
+ * @date    04/20/15
+ * @updated 05/17/15
  */
 @WebServlet("/createUser")
 public class CreateUserServlet extends HttpServlet {
-    private boolean stop = false;
+    //logger for debuggin
     Logger log = Logger.getLogger(CreateUserServlet.class.getName());
+    //boolean for stopping on bad input
+    private boolean stop = false;
     
+    /**
+     * Processes post and adds user to database if successful
+     * @param request
+     * @param response 
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         stop = false;
         Connection conn = null;
-        String message = null;
+        String message;
         try {
             conn = LookDatabaseUtils.getNewConnection();
         } catch (ClassNotFoundException | SQLException ex) {
@@ -156,6 +166,12 @@ public class CreateUserServlet extends HttpServlet {
         }
     }
     
+    /**
+     * Stops adding user and forwards error message with request back to user
+     * @param request
+     * @param response
+     * @param message 
+     */
     private void stop(HttpServletRequest request, HttpServletResponse response, String message) {
         stop = true;
         request.setAttribute("message", message);

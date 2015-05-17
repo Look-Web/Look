@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.look;
 
 import java.io.IOException;
@@ -35,12 +30,22 @@ import org.apache.commons.lang3.StringUtils;
  */
 
 /**
- *
- * @author kevinholland
+ * ChangeAccountServlet handles changing user data
+ * 
+ * @author  Kevin Holland (GitHub: kholland950)
+ * @date    04/20/15
+ * @updated 05/17/15
  */
 @WebServlet("/changeAccount")
 public class ChangeAccountServlet extends HttpServlet {
-    
+    /**
+     * Processes post request for changing user account data
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ServletException 
+     */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String newFirstName = request.getParameter("firstName");
         String newLastName = request.getParameter("lastName");
@@ -62,7 +67,7 @@ public class ChangeAccountServlet extends HttpServlet {
         }
         
         //change the name
-        Connection conn = null;
+        Connection conn;
         try {
             conn = LookDatabaseUtils.getNewConnection();
             PreparedStatement updateStatement = conn.prepareStatement(
@@ -74,9 +79,7 @@ public class ChangeAccountServlet extends HttpServlet {
             updateStatement.setString(2, newLastName);
             updateStatement.setString(3, username);
             updateStatement.executeUpdate();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ChangeAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ChangeAccountServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.look;
 
 import java.io.IOException;
@@ -33,14 +28,26 @@ import javax.servlet.http.HttpSession;
  */
 
 /**
- *
- * @author kevinholland
+ * DeletePostServlet handles the deletion of posts in the DB
+ * ! This does not delete the image in the file system associated with the post
+ * 
+ * @author  Kevin Holland (GitHub: kholland950)
+ * @date    04/20/15
+ * @updated 05/17/15
  */
 @WebServlet("/deletePost")
 public class DeletePostServlet extends HttpServlet {
-    
+    //TODO CHANGE THIS TO POST???
+    //TODO HANDLE NAVIGATING TO POST PAGE
+    /**
+     * Processes get request for deletion
+     * @param request
+     * @param response
+     * @throws IOException 
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
+        //TODO HANDLE DELETION SECURITY!!!!!!!
         if (session.getAttribute("deleting") == null) {
             response.sendRedirect(".");
         } else {

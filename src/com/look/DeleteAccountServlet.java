@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.look;
 
 import java.io.IOException;
@@ -36,12 +31,21 @@ import javax.servlet.http.HttpSession;
  */
 
 /**
- *
- * @author kevinholland
+ * DeleteAccountServlet handles deletion of account
+ * 
+ * @author  Kevin Holland (GitHub: kholland950)
+ * @date    04/20/15
+ * @updated 05/17/15
  */
 @WebServlet("/deleteAccount")
 public class DeleteAccountServlet extends HttpServlet {
-    
+    /**
+     * Processes get request to delete account
+     * @param request
+     * @param response
+     * @throws IOException 
+     */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //select post_id from posts where user_id=123
         //delete from posts where user_id=123

@@ -33,14 +33,24 @@ import org.ocpsoft.prettytime.PrettyTime;
  */
 
 /**
- *
- * @author kevinholland
+ * PostPageServlet processes a "/post" get request and forwards to the image post page
+ * 
+ * @author  Kevin Holland (GitHub: kholland950)
+ * @date    04/20/15
+ * @updated 05/17/15
  */
 @WebServlet("/post")
 public class PostPageServlet extends HttpServlet {
-    
+    /**
+     * Get request for image post page
+     * @param request HttpServletRequest from client
+     * @param response HttpServletResponse to send to client
+     * @throws ServletException
+     * @throws IOException 
+     */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Connection conn = null;
+        Connection conn;
         int post_id = Integer.parseInt(request.getParameter("id"));
         request.setAttribute("postID", post_id);
             
@@ -86,9 +96,7 @@ public class PostPageServlet extends HttpServlet {
             Date date = new Date(stamp.getTime());
             request.setAttribute("time", p.format(date));
             
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(PostPageServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(PostPageServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         request.getRequestDispatcher("post.jsp").forward(request, response);

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.look;
 
 import java.io.IOException;
@@ -11,8 +6,6 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -39,12 +32,22 @@ import org.ocpsoft.prettytime.PrettyTime;
  */
 
 /**
- *
- * @author kevinholland
+ * MyProfile handles profile get requests and forwards to the corresponding profile page 
+ * 
+ * @author  Kevin Holland (GitHub: kholland950)
+ * @date    04/20/15
+ * @updated 05/17/15
  */
 @WebServlet("/myProfile")
 public class MyProfile extends HttpServlet {
-    
+    /**
+     * Processes get request for profile page
+     * @param request HttpServletRequest from client
+     * @param response HttpServletResponse to send to client
+     * @throws ServletException
+     * @throws IOException 
+     */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
             request.getSession().setAttribute("destination", "myProfile");
@@ -53,7 +56,7 @@ public class MyProfile extends HttpServlet {
         String username = request.getSession().getAttribute("user").toString();
         request.setAttribute("username", username);
         int user_id = DatabaseUserUtils.getUserIDFromUsername(username);
-        Connection conn = null;
+        Connection conn;
         String postIDsString = "";
         int numOfPosts = 0;
         try {

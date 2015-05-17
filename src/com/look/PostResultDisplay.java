@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.look;
 
 import java.sql.Connection;
@@ -34,13 +29,22 @@ import org.ocpsoft.prettytime.PrettyTime;
  */
 
 /**
- *
- * @author kevinholland
+ * This class contains a static method to generate HTML for displaying multiple
+ * posts in a grid layout
+ * 
+ * @author  Kevin Holland (GitHub: kholland950)
+ * @date    04/20/15
+ * @updated 05/17/15
  */
 public class PostResultDisplay {
 
     public static Connection conn;
 
+    /**
+     * Generates HTML of multiple posts in a grid layout
+     * @param postIDs Post IDs to be displayed in order. Must be IDs separated by spaces
+     * @return String of HTML
+     */
     public static String displayPostsFromIDs(String postIDs) {
         if (postIDs.equals("")) {
             //no results were found
@@ -70,6 +74,13 @@ public class PostResultDisplay {
         return output;
     }
 
+    /**
+     * Generates HTML for a specific post given a ResultSet. 
+     * Only uses the current Result. Does not iterate. 
+     * @param post ResultSet with post data to display
+     * @return String of HTML for post
+     * @throws SQLException 
+     */
     private static String displayPost(ResultSet post) throws SQLException {
         Statement sUser = conn.createStatement();
         int userID = post.getInt(4);
