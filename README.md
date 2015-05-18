@@ -1,6 +1,9 @@
 # Look
 An image sharing website and social network
 
+Git Pages Project Site:
+http://look-web.github.io/Look/
+
 #### Contributors:  
 Kevin Holland   
 Matt Fonner  
