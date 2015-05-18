@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.look;
 
 import java.io.File;
@@ -11,14 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +28,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import static org.apache.commons.lang3.StringUtils.split;
 
 /*
  * Copyright 2015 Kevin Holland.
@@ -55,66 +46,83 @@ import static org.apache.commons.lang3.StringUtils.split;
  */
 
 /**
- *
- * @author kevinholland
+ * UploadPostServlet handles the uploading of posts to both the Look server and database.
+ * The uploaded image is stored in the build directory /images and a reference
+ * to the image is stored in the database. The image name is changed to the
+ * postID and the associated extension of the image. 
+ * 
+ * @author  Kevin Holland (GitHub: kholland950)
+ * @date    04/25/2015
+ * @updated 05/17/2015
  */
 @WebServlet("/uploadServlet")
 public class UploadPostServlet extends HttpServlet {
-    Logger log = Logger.getLogger(UploadPostServlet.class.getName());
+    //logger for debugging requests
+    static final Logger log = Logger.getLogger(UploadPostServlet.class.getName());
+    
+    //directory for storing images 
     private String IMAGE_DIRECTORY = null;
-    private final String db = "look_db";
-    private final String dbUser = "look_admin";
-    private final String dbPass = "lookpass";
     
-    private final String USER_FIELD_NAME = "user";
-    private final String TITLE_FIELD_NAME = "title";
-    private final String DESCRIPTION_FIELD_NAME = "description";
-    private final String TAGS_FIELD_NAME = "tags";
+    //constants for DB field names
+    private static final String TITLE_FIELD_NAME = "title";
+    private static final String DESCRIPTION_FIELD_NAME = "description";
+    private static final String TAGS_FIELD_NAME = "tags";
     
+    //variables for storing data about the post
     private String user = null;
     private String title = null;
     private String description = null;
     private String tags = null;
     private List<String> tagList;
     private String imageURL = null;
-    
-    private int post_id;
-    
-    private String message = "";
-    
+    //image extensions from uploaded image
     private String imageExtension = null;
-    
+    //image content
     private InputStream fileContent;
         
+    //responseMessage from server.
+    private String responseMessage = "";
+    
  //-----------------------------------------------------------------------------------------------
 
+    /**
+     * Handles post request for uploading images and creating a post (image post)
+     * @param request HttpRequest from client
+     * @param response HttpResponse to be sent to client
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {    
-        message = "";
-        URL imagesResourceURL = UploadPostServlet.class.getClassLoader().getResource("images/");
+            throws ServletException, IOException {   
+        //must reset responseMessage on next post. Fixes unwanted error message bug
+        responseMessage = "";
         
+        //get real image directory path
         IMAGE_DIRECTORY = getServletContext().getRealPath("/images/");
         
+        //get user attribute from session
         user = request.getSession().getAttribute("user").toString();
         
+        //try to handle request
         boolean success = handleRequest(request);
+        //if handling was not successful (bad input) forward to upload.jsp with message
         if (success == false) {
             request.setAttribute("title", title);
             request.setAttribute("description", description);
             request.setAttribute("tags", tags);
-            request.setAttribute("message", message);
+            request.setAttribute("message", responseMessage);
             getServletContext().getRequestDispatcher("/upload.jsp").forward(request, response);
             return;
         }
         
         Connection conn = null; // connection to the database
-        String message = null;  // message will be sent back to client
+        
+        int post_id = -1;
          
         try {
             // connects to the database
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/"+db, dbUser, dbPass);
+            conn = LookDatabaseUtils.getNewConnection();
  
             // constructs SQL statement
             String postSQL = "INSERT INTO posts (title, description, users_user_ID, image_url, time_posted)"
@@ -176,8 +184,8 @@ public class UploadPostServlet extends HttpServlet {
             }
             
         } catch (SQLException ex) {
-            message = "ERROR: " + ex.getMessage();
-            ex.printStackTrace();
+            responseMessage = "ERROR: " + ex.getMessage();
+            log.warning(ex.getMessage());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UploadPostServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -186,20 +194,22 @@ public class UploadPostServlet extends HttpServlet {
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    log.warning(ex.getMessage());
                 }
             }
              
-            //TODO change this to go to the image post
             response.sendRedirect("post?id=" + post_id);
             //getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
     
-    
+    /***************************************************************************
+     * Saves user uploaded file to server
+     * @return True if successfully stored on server, false otherwise
+     */
     private boolean uploadFile() {
         File f = new File(IMAGE_DIRECTORY + File.separator + imageURL);
-        OutputStream out = null;
+        OutputStream out;
         try {
             out = new FileOutputStream(f);
         } catch (FileNotFoundException ex) {
@@ -219,6 +229,11 @@ public class UploadPostServlet extends HttpServlet {
     
 //-----------------------------------------------------------------------------------------------
     
+    /***************************************************************************
+     * Processes request data and saves into instance variables
+     * @param request HttpServletRequest from client
+     * @return True if successfully handled, false otherwise
+     */
     private boolean handleRequest(HttpServletRequest request) {
         if (ServletFileUpload.isMultipartContent(request)) {
             try {
@@ -232,9 +247,9 @@ public class UploadPostServlet extends HttpServlet {
                         String fieldName = item.getFieldName();
                         String filename = item.getName();
                         if (filename.equals("")) {
-                            //only update message if there isn't one yet
-                            if (message.equals("")) {
-                                message = "Please choose an image";
+                            //only update responseMessage if there isn't one yet
+                            if (responseMessage.equals("")) {
+                                responseMessage = "Please choose an image";
                             }
                             success = false;
                         }
@@ -248,55 +263,56 @@ public class UploadPostServlet extends HttpServlet {
                         String value = item.getString();
                         //only title is required
                         if (value.equals("") && (fieldName.equals("title"))) {
-                            message = "Please enter a title";
+                            responseMessage = "Please enter a title";
                             success = false;
                         }
-                        if (fieldName.equals(TITLE_FIELD_NAME)) {
-                            title = value;
-                        } else if (fieldName.equals(DESCRIPTION_FIELD_NAME)) {
-                            description = value;
-                        } else if (fieldName.equals(TAGS_FIELD_NAME)) {
-                            tags = value;
-                            if (!tags.equals("")) {
-                                tagList = new LinkedList<String>(Arrays.asList(tags.split(" ")));
-                                for (int i = 0; i < tagList.size(); i++) {
-                                    String tag = tagList.get(i);
-                                    if (tag.charAt(0) != '#') {
-                                        if (message.equals("")) {
-                                            message = "Tags must begin with #";
-                                            success = false;
+                        switch (fieldName) {
+                            case TITLE_FIELD_NAME:
+                                title = value;
+                                break;
+                            case DESCRIPTION_FIELD_NAME:
+                                description = value;
+                                break;
+                            case TAGS_FIELD_NAME:
+                                tags = value;
+                                if (!tags.equals("")) {
+                                    tagList = new LinkedList<>(Arrays.asList(tags.split(" ")));
+                                    for (int i = 0; i < tagList.size(); i++) {
+                                        String tag = tagList.get(i);
+                                        if (tag.charAt(0) != '#') {
+                                            if (responseMessage.equals("")) {
+                                                responseMessage = "Tags must begin with #";
+                                                success = false;
+                                            }
+                                            tagList.remove(i);
+                                        } else if (!StringUtils.isAlphanumeric(tag.substring(1))) {
+                                            log.info(tag.substring(1));
+                                            if (responseMessage.equals("")) {
+                                                responseMessage = "Tags must only contain numbers and letters";
+                                                success = false;
+                                            }
+                                            tagList.remove(i);
+                                        } else if (tag.length() > 20) {
+                                            if (responseMessage.equals("")) {
+                                                responseMessage = "Tags must be 20 characters or less";
+                                                success = false;
+                                            }
+                                            tagList.remove(i);
+                                        } else {
+                                            //tag is valid, remove the '#' for storage
+                                            tagList.set(i, tag.substring(1));
                                         }
-                                        tagList.remove(i);
-                                    } else if (!StringUtils.isAlphanumeric(tag.substring(1))) {
-                                        log.info(tag.substring(1));
-                                        if (message.equals("")) {
-                                            message = "Tags must only contain numbers and letters";
-                                            success = false;
-                                        }
-                                        tagList.remove(i);
-                                    } else if (tag.length() > 20) {
-                                        if (message.equals("")) {
-                                            message = "Tags must be 20 characters or less";
-                                            success = false;
-                                        }
-                                        tagList.remove(i);
-                                    } else {
-                                        //tag is valid, remove the '#' for storage
-                                        tagList.set(i, tag.substring(1));
                                     }   
                                 }
-                            }
-                            //now have list of alphanumeric tags of 20 chars or less
+                                //now have list of alphanumeric tags of 20 chars or less
+                                break;
                         }
                     }
                 }
                 if (!success) {
                     return false;
                 }
-            } catch (FileUploadException ex) {
-                Logger.getLogger(UploadPostServlet.class.getName()).log(Level.SEVERE, null, ex);
-                return false;
-            } catch (Exception ex) {
+            } catch (FileUploadException | IOException ex) {
                 Logger.getLogger(UploadPostServlet.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }

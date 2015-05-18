@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.look;
 
 import java.sql.Connection;
@@ -29,19 +24,34 @@ import java.util.logging.Logger;
  */
 
 /**
- *
- * @author kevinholland
+ * This class contains several static utility methods for use with the Look db
+ * 
+ * @author  Kevin Holland (GitHub: kholland950)
+ * @date    04/20/15
+ * @updated 05/17/15
  */
 public class LookDatabaseUtils {
+    //constants for database
     public static final String DB = "look_db";
     public static final String DB_USER = "look_admin";
     public static final String DB_PASS = "lookpass";
     
+    /**
+     * This method establishes a new connection with the database using constants above
+     * @return Connection with database
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     public static Connection getNewConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         return DriverManager.getConnection("jdbc:mysql://localhost/" + DB, DB_USER, DB_PASS);
     }
     
+    /**
+     * Queries DB for tags from a post id
+     * @param id ID of post
+     * @return String of tags separated by spaces
+     */
     public static String getTagsFromPostID(int id) {
         Connection conn = null;
         try {

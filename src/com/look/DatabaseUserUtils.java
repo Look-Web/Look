@@ -24,11 +24,18 @@ import javax.servlet.http.HttpSession;
  */
 
 /**
- *
- * @author kevinholland
+ * This class contains static methods concerning User data in the database
+ * 
+ * @author  Kevin Holland (GitHub: kholland950)
+ * @date    04/20/15
+ * @updated 05/17/15
  */
 public class DatabaseUserUtils {
-    
+    /**
+     * Gets logged in user from the session
+     * @param session HttpSession associated with user
+     * @return ResultSet of user, or null not logged in
+     */
     public static ResultSet getLoggedInUser(HttpSession session) {
         Connection conn = null;
         if (session.getAttribute("user") == null) {
@@ -50,10 +57,20 @@ public class DatabaseUserUtils {
         return null;
     }
     
+    /**
+     * Gets logged in username
+     * @param session HttpSession associated with user
+     * @return String username
+     */
     public static String getLoggedInUsername(HttpSession session) {
         return session.getAttribute("user").toString();
     }
     
+    /**
+     * Gets the first name of the user by username
+     * @param username String username
+     * @return String of username
+     */
     public static String getFirstNameFromUsername(String username) {
         Connection conn = null;
         try {
@@ -73,6 +90,11 @@ public class DatabaseUserUtils {
         return null;
     }
     
+    /**
+     * Gets last name of user by username
+     * @param username HttpSession associated with user
+     * @return String of last name
+     */
     public static String getLastNameFromUsername(String username) {
         Connection conn = null;
         try {
@@ -92,6 +114,11 @@ public class DatabaseUserUtils {
         return null;
     }
     
+    /**
+     * Gets username from the user's id
+     * @param id ID of user
+     * @return String of username
+     */
     public static String getUsernameFromUserID(int id) {
         Connection conn = null;
         try {
@@ -111,6 +138,11 @@ public class DatabaseUserUtils {
         return null;
     }
     
+    /**
+     * Gets userID from username
+     * @param username String username of user
+     * @return String of userID
+     */
     public static int getUserIDFromUsername(String username) {
         Connection conn = null;
         try {

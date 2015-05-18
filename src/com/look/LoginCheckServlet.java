@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.look;
 
 import java.io.IOException;
@@ -36,11 +31,23 @@ import javax.servlet.http.HttpSession;
  */
 
 /**
- *
- * @author kevinholland
+ * LoginCheckServlet handles logging in.
+ * - Verifies authentication
+ * - Sets user session attribute
+ * 
+ * @author  Kevin Holland (GitHub: kholland950)
+ * @date    04/20/15
+ * @updated 05/17/15
  */
 @WebServlet("/authorizeLogin")
 public class LoginCheckServlet extends HttpServlet {
+    /**
+     * Processes post request and authenticates login
+     * @param request HttpServletRequest login request sent from client
+     * @param response HttpServletResponse to be sent to client
+     * @throws ServletException
+     * @throws IOException 
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String user = request.getParameter("username");
@@ -65,6 +72,12 @@ public class LoginCheckServlet extends HttpServlet {
         }
     }
     
+    /**
+     * Authenticates login from user and password
+     * @param user
+     * @param password
+     * @return Returns true if successful, false otherwise
+     */
     private boolean authenticateLogin(String user, String password) {
         Connection conn = null;
         boolean authorized = false;

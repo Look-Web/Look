@@ -26,10 +26,20 @@ import org.ocpsoft.prettytime.PrettyTime;
  */
 
 /**
- *
- * @author kevinholland
+ * This class contains a static method for generating the Recent Feed on the home page
+ * 
+ * @author  Kevin Holland (GitHub: kholland950)
+ * @date    04/20/15
+ * @updated 05/17/15
  */
 public class RecentFeed {
+    /**
+     * Fetches posts by most recent and returns a string of HTML code
+     * @param fetchSize Number of posts to display
+     * @return String of formatted HTML that displays posts
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public static String outputRecentFeed(int fetchSize) throws SQLException, ClassNotFoundException {
         //establish db connection
         Connection con = LookDatabaseUtils.getNewConnection();

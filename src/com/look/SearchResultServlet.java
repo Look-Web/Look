@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.look;
 
 import java.io.IOException;
@@ -34,24 +29,41 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 /**
- *
- * @author kevinholland
+ * SearchResultServlet handles search get requests from users and responds 
+ * with a string of postIDs separated by spaces
+ * 
+ * @author  Kevin Holland (GitHub: kholland950)
+ * @date    04/20/15
+ * @updated 05/17/15
  */
 @WebServlet("/search")
 public class SearchResultServlet extends HttpServlet {
-    
+    /**
+     * Processes search get request and responds with a string of postIDs separated by spaces
+     * Responds with an empty string if there are no results
+     * @param request HttpServletRequest from client
+     * @param response HttpServletResponse to be sent to client
+     * @throws ServletException
+     * @throws IOException 
+     */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //get search tag from request (string that was entered by user to be searched
         String tag = request.getParameter("tag");
+        //if user started with search term with "#" remove it
         if (tag.charAt(0) == '#') {
             tag = tag.substring(1);
         }
-        Connection conn = null;
-        
+        //set searchTag attribute for request forward (include '#' - user sees this)
         request.setAttribute("searchTag", "#" + tag);
+        
+        //mysql connection
+        Connection conn;
         
         //post_id's separated by spaces
         String postIDString = "";
         
+        //try to get posts with search tag from db
         try {
             conn = LookDatabaseUtils.getNewConnection();
             
@@ -72,9 +84,7 @@ public class SearchResultServlet extends HttpServlet {
             
             request.setAttribute("postIDs", postIDString);
             
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SearchResultServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(SearchResultServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         

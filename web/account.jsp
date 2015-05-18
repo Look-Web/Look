@@ -4,6 +4,7 @@
     Author     : kevinholland
 --%>
 
+<%@page import="com.look.MenuBar.Items"%>
 <%@page import="com.look.DatabaseUserUtils"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="com.look.MenuBar"%>
@@ -28,7 +29,7 @@
     </head>
     <body>
         
-        <%out.println(MenuBar.generateMenuBar(session, "User:Account"));%>
+        <%out.println(MenuBar.generateMenuBar(session, Items.USER_ACCOUNT));%>
         
         <div align="center">
             <div class="row">

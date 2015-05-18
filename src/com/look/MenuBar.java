@@ -1,10 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.look;
 
+import com.sun.istack.logging.Logger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
 import javax.servlet.http.HttpSession;
 
 /*
@@ -24,11 +24,20 @@ import javax.servlet.http.HttpSession;
  */
 
 /**
- *
- * @author kevinholland
+ * This class contains a static method for generating HTML for the MenuBar
+ * 
+ * @author  Kevin Holland (GitHub: kholland950)
+ * @date    04/20/15
+ * @updated 05/17/15
  */
 public class MenuBar {
-    public static String generateMenuBar(HttpSession session, String activeItem) {
+    /**
+     * Generates HTML for MenuBar from given session and activeItem
+     * @param session HttpSession corresponding with user's session
+     * @param activeItem String of active page or currently selected menu item
+     * @return Sting HTML of menu bar
+     */
+    public static String generateMenuBar(HttpSession session, Items activeItem) {
         String leftSectionHeaderHtml = 
                 "<div class='contain-to-grid'>" +
                 "   <nav class='top-bar' data-topbar data-options='is_hover: false' role='navigation'>";
@@ -62,36 +71,58 @@ public class MenuBar {
                 "   </nav>" +
                 "</div>";
         
+        //if user logged in, show Hello item and menu
+        boolean loggedIn;
         if (session.getAttribute("user") != null) {
+            loggedIn = true;
             userItemHtml += "<li class='%s has-dropdown'><a class='hvr-underline-from-center' href='#'>Hello, ";
             userItemHtml += DatabaseUserUtils.getFirstNameFromUsername(session.getAttribute("user").toString());
             userItemHtml += "!</a><ul class='dropdown'><li class='%s'><a class='hvr-underline-from-center' href='myProfile'>Profile</a></li>";
             userItemHtml += "<li class='%s'><a class='hvr-underline-from-center' href='account.jsp'>Account Settings</a></li>";
             userItemHtml += "<li><a class='hvr-underline-from-center' href='logout.jsp'>Logout</a></li></ul></li>";
-        } else {
+        } else { //else show login item
+            loggedIn = false;
             userItemHtml += "<li class='%s'><a class='hvr-underline-from-center' href='login.jsp' data-reveal-id='loginModal'>Login | Sign up</a></li>";
         }
-        
-        if (activeItem.equals("Recent Feed")) {
-            recentFeedItemHtml = String.format(recentFeedItemHtml, "active");
-            uploadItemHtml = String.format(uploadItemHtml, "inactive");
-            userItemHtml = String.format(userItemHtml, "inactive", "inactive", "inactive");
-        } else if (activeItem.equals("Upload")) {
-            recentFeedItemHtml = String.format(recentFeedItemHtml, "inactive");
-            uploadItemHtml = String.format(uploadItemHtml, "active");
-            userItemHtml = String.format(userItemHtml, "inactive", "inactive", "inactive");
-        } else if (activeItem.contains("User")) {
-            userItemHtml = String.format(userItemHtml, "active", "%s", "%s");
-            if (activeItem.equals("User:Profile")) {
-                userItemHtml = String.format(userItemHtml, "active", "inactive");
-            }
-            else if (activeItem.equals("User:Account")) {
-                userItemHtml = String.format(userItemHtml, "inactive", "active");
+        //add all right section items in to right section html for string substitution
+        rightSectionHeaderHtml += searchBarHtml + recentFeedItemHtml + uploadItemHtml + userItemHtml;
+        //string substitution list
+        List<String> subs = new ArrayList<>();
+        //3 items default
+        int numItems = 3;
+        if (loggedIn) { //5 items when logged in
+            numItems = 5;
+        } //set all to inactive as default
+        for (int i = 0; i < numItems; i++) {
+            subs.add("inactive");
+        }
+        //if active item is not NONE, then set the proper one to "active"
+        if (!activeItem.equals(Items.NONE)) {
+            subs.set(activeItem.value, "active");
+            //if logged in, handle the special case of account and profile
+            if (loggedIn) {
+                if (activeItem.equals(Items.USER_ACCOUNT) || activeItem.equals(Items.USER_PROFILE)) {
+                    //USER should also be active when account or profile is active
+                    subs.set(Items.USER.value, "active");
+                }
             }
         }
+        //format string using subs (active and inactive)
+        rightSectionHeaderHtml = String.format(rightSectionHeaderHtml, subs.toArray());
         
-        return leftSectionHeaderHtml + logonHtml + rightSectionHeaderHtml + 
-                searchBarHtml + recentFeedItemHtml + uploadItemHtml + 
-                userItemHtml + closingHtml;
+        //return generated html
+        return leftSectionHeaderHtml + logonHtml + rightSectionHeaderHtml + closingHtml;
+    }
+    
+    /**
+     * This enumeration represents all possible active Items on the menu bar
+     */
+    public enum Items {
+        NONE(-1), RECENT_FEED(0), UPLOAD(1), USER(2), USER_PROFILE(3), USER_ACCOUNT(4);
+        
+        public final int value;
+        private Items(int value) {
+            this.value = value;
+        }
     }
 }
